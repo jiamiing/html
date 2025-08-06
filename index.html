@@ -46,7 +46,8 @@
         }
 
         .hero-title {
-            font-size: clamp(3rem, 8vw, 8rem);
+            font-family: 'Technonomicon', Arial, sans-serif;
+            font-size: clamp(2rem, 5.33vw, 5.33rem);
             font-weight: 900;
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
             background-size: 400% 400%;
@@ -63,6 +64,106 @@
             opacity: 0.8;
             margin-bottom: 2rem;
             letter-spacing: 2px;
+        }
+
+        @font-face {
+            font-family: 'Pixely';
+            src: url('./fonts/pixely.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Technonomicon';
+            src: url('./fonts/Technonomicon.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        .terminal-text {
+            font-family: 'Pixely', 'Courier New', 'Monaco', 'Menlo', monospace;
+            color: #00ff00 !important;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-shadow: 0 0 10px #00ff00;
+            letter-spacing: 1px;
+            font-weight: bold;
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            animation: textFlicker 2s infinite;
+        }
+
+        .cursor {
+            animation: blink 0.8s infinite;
+            color: #00ff00;
+            background-color: #00ff00;
+            display: inline-block;
+            width: 12px;
+            height: 0.8em;
+            margin-left: 2px;
+            vertical-align: baseline;
+        }
+
+        .signature {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: 'Pixely', monospace;
+            font-size: 14px;
+            color: #00ff00;
+            text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 8px 12px;
+            border-radius: 3px;
+            text-shadow: 0 0 10px #00ff00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            animation: signatureFlicker 0.3s infinite;
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+
+        .signature:hover {
+            background-color: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.5);
+            transform: scale(1.05);
+        }
+
+        @keyframes signatureFlicker {
+            0%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 10px #00ff00;
+            }
+            25% {
+                opacity: 0.8;
+                text-shadow: 0 0 5px #00ff00;
+            }
+            50% {
+                opacity: 0.9;
+                text-shadow: 0 0 15px #00ff00;
+            }
+            75% {
+                opacity: 0.7;
+                text-shadow: 0 0 8px #00ff00;
+            }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @keyframes textFlicker {
+            0%, 98% { 
+                opacity: 1;
+                text-shadow: 0 0 10px #00ff00;
+            }
+            99% { 
+                opacity: 0.95;
+                text-shadow: 0 0 8px #00ff00;
+            }
+            100% { 
+                opacity: 0.98;
+                text-shadow: 0 0 12px #00ff00;
+            }
         }
 
         .scroll-indicator {
@@ -173,9 +274,10 @@
     <!-- Hero 区域 -->
     <section class="hero" id="hero">
         <canvas class="hero-canvas" id="heroCanvas"></canvas>
+        <a href="https://open.spotify.com/track/3DK6m7It6Pw857FcQftMds?si=2577d4c1e3304221" target="_blank" class="signature">Kanye East</a>
         <div class="hero-content">
-            <h1 class="hero-title">WEB</h1>
-            <p class="hero-subtitle">哟哟哟哟</p>
+            <h1 class="hero-title">TUTORIALS</h1>
+            <p class="hero-subtitle terminal-text" id="terminalSubtitle">VIBING CODING<span class="cursor">_</span></p>
         </div>
         <div class="scroll-indicator">
             <div class="scroll-arrow"></div>
@@ -235,10 +337,47 @@
         // 注册GSAP插件
         gsap.registerPlugin(ScrollTrigger);
         
+        // 终端打字效果
+        function initTerminalEffect() {
+            const subtitle = document.getElementById('terminalSubtitle');
+            const baseText = 'VIBING CODING';
+            let gCount = 0;
+            let isAdding = true;
+            let lastUpdate = 0;
+            
+            function updateTerminal() {
+                const now = Date.now();
+                if (now - lastUpdate < 300) return; // 控制打字速度
+                lastUpdate = now;
+                
+                if (isAdding) {
+                    gCount++;
+                    if (gCount >= 8) {
+                        isAdding = false;
+                        setTimeout(() => {
+                            isAdding = false;
+                        }, 1000); // 停顿1秒后开始删除
+                    }
+                } else {
+                    gCount--;
+                    if (gCount <= 0) {
+                        isAdding = true;
+                        gCount = 0;
+                    }
+                }
+                
+                const gString = 'G'.repeat(Math.max(0, gCount));
+                subtitle.innerHTML = baseText + gString + '<span class="cursor"></span>';
+            }
+            
+            setInterval(updateTerminal, 300);
+        }
+
         // 初始化应用
         document.addEventListener('DOMContentLoaded', function() {
             initHeroScene();
             initScrollAnimations();
+            initTerminalEffect();
         });
 
         // Hero区域3D场景初始化
