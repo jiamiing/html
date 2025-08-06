@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web 技术炫技展示 | 最前沿的网页特效</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #7209b7 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Hero 区域 */
+        .hero {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #fff;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+            opacity: 0.7;
+        }
+
+        /* 技术展示区域 */
+        .tech-sections {
+            position: relative;
+            z-index: 5;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* 3D渲染区域 */
+        .render-section {
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+        }
+
+        /* 粒子系统区域 */
+        .particle-section {
+            background: radial-gradient(ellipse at center, #2d1b69 0%, #11998e 50%, #0f0f23 100%);
+        }
+
+        /* 液态金属区域 */
+        .liquid-section {
+            background: radial-gradient(ellipse at center, #434343 0%, #000000 100%);
+        }
+
+        /* 滚动交互区域 */
+        .scroll-section {
+            background: radial-gradient(ellipse at center, #8360c3 0%, #2ebf91 100%);
+        }
+
+        /* 高级交互区域 */
+        .interaction-section {
+            background: radial-gradient(ellipse at center, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+        }
+
+        /* 动画 */
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 60px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero 区域 -->
+    <section class="hero" id="hero">
+        <canvas class="hero-canvas" id="heroCanvas"></canvas>
+        <div class="hero-content">
+            <h1 class="hero-title">WEB</h1>
+            <p class="hero-subtitle">哟哟哟哟</p>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- 技术展示区域 -->
+    <div class="tech-sections">
+        <!-- 3D渲染实时交互区域 -->
+        <section class="section render-section" id="render">
+            <h2 class="section-title">3D 渲染实时交互</h2>
+            <div class="render-container">
+                <!-- 3D内容将在这里渲染 -->
+            </div>
+        </section>
+
+        <!-- 粒子系统展示区 -->
+        <section class="section particle-section" id="particles">
+            <h2 class="section-title">粒子系统动画</h2>
+            <div class="particle-container">
+                <!-- 粒子效果将在这里渲染 -->
+            </div>
+        </section>
+
+        <!-- 液态金属效果区域 -->
+        <section class="section liquid-section" id="liquid">
+            <h2 class="section-title">液态金属效果</h2>
+            <div class="liquid-container">
+                <!-- 液态效果将在这里渲染 -->
+            </div>
+        </section>
+
+        <!-- 滚动交互展示区 -->
+        <section class="section scroll-section" id="scroll-effects">
+            <h2 class="section-title">滚动交互特效</h2>
+            <div class="scroll-container">
+                <!-- 滚动效果将在这里展示 -->
+            </div>
+        </section>
+
+        <!-- 高级交互区域 -->
+        <section class="section interaction-section" id="interactions">
+            <h2 class="section-title">高级交互体验</h2>
+            <div class="interaction-container">
+                <!-- 交互效果将在这里展示 -->
+            </div>
+        </section>
+    </div>
+
+    <!-- 引入必要的库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="./cannon.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        // 注册GSAP插件
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // 初始化应用
+        document.addEventListener('DOMContentLoaded', function() {
+            initHeroScene();
+            initScrollAnimations();
+        });
+
+        // Hero区域3D场景初始化
+        function initHeroScene() {
+            const canvas = document.getElementById('heroCanvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ 
+                canvas: canvas, 
+                alpha: true, 
+                antialias: true,
+                powerPreference: "high-performance"
+            });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.2;
+            
+            // 初始化物理世界
+             const world = new CANNON.World();
+             world.gravity.set(0, -4.9, 0); // 降低重力
+             world.broadphase = new CANNON.NaiveBroadphase();
+             world.defaultContactMaterial.friction = 0.4;
+             world.defaultContactMaterial.restitution = 0.6; // 降低弹性
+            
+            // 创建边界墙体
+             const boundaries = [];
+             
+             // 地面
+             const groundShape = new CANNON.Plane();
+             const groundBody = new CANNON.Body({ mass: 0 });
+             groundBody.addShape(groundShape);
+             groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+             groundBody.position.set(0, -8, 0);
+             world.add(groundBody);
+             boundaries.push(groundBody);
+             
+             // 左右墙
+             const leftWall = new CANNON.Body({ mass: 0 });
+             leftWall.addShape(new CANNON.Plane());
+             leftWall.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI / 2);
+             leftWall.position.set(-12, 0, 0);
+             world.add(leftWall);
+             
+             const rightWall = new CANNON.Body({ mass: 0 });
+             rightWall.addShape(new CANNON.Plane());
+             rightWall.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2);
+             rightWall.position.set(12, 0, 0);
+             world.add(rightWall);
+             
+             // 前后墙
+             const frontWall = new CANNON.Body({ mass: 0 });
+             frontWall.addShape(new CANNON.Plane());
+             frontWall.position.set(0, 0, -12);
+             world.add(frontWall);
+             
+             const backWall = new CANNON.Body({ mass: 0 });
+             backWall.addShape(new CANNON.Plane());
+             backWall.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI);
+             backWall.position.set(0, 0, 12);
+             world.add(backWall);
+             
+             // 天花板
+             const ceilingShape = new CANNON.Plane();
+             const ceilingBody = new CANNON.Body({ mass: 0 });
+             ceilingBody.addShape(ceilingShape);
+             ceilingBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2);
+             ceilingBody.position.set(0, 15, 0);
+             world.add(ceilingBody);
+            
+            // 存储所有物体
+            const objects = [];
+            const bodies = [];
+            const floatingObjects = [];
+            const floatingBodies = [];
+            const floatingOriginalPositions = [];
+            
+            // 创建25个几何体，增加不规则形状比例
+             const geometries = [
+                 new THREE.TorusKnotGeometry(0.8, 0.3, 128, 32, 2, 3),
+                 new THREE.TorusKnotGeometry(0.7, 0.25, 128, 32, 3, 4),
+                 new THREE.TorusKnotGeometry(0.9, 0.35, 128, 32, 5, 2),
+                 new THREE.TorusKnotGeometry(0.6, 0.2, 128, 32, 4, 5),
+                 new THREE.TorusKnotGeometry(0.85, 0.3, 128, 32, 3, 7),
+                 new THREE.OctahedronGeometry(1.2, 6),
+                 new THREE.IcosahedronGeometry(1.2, 6),
+                 new THREE.DodecahedronGeometry(1.2, 6),
+                 new THREE.TetrahedronGeometry(1.5, 6),
+                 new THREE.TorusGeometry(1, 0.4, 64, 128),
+                 new THREE.TorusGeometry(0.8, 0.3, 64, 128),
+                 new THREE.TorusGeometry(1.2, 0.5, 64, 128),
+                 new THREE.SphereGeometry(1, 128, 128),
+                 new THREE.BoxGeometry(1.5, 1.5, 1.5, 32, 32, 32),
+                 new THREE.ConeGeometry(1, 2, 128),
+                 new THREE.CylinderGeometry(0.8, 0.8, 2, 128),
+                 new THREE.OctahedronGeometry(1.0, 5),
+                 new THREE.IcosahedronGeometry(1.0, 5),
+                 new THREE.DodecahedronGeometry(1.0, 5),
+                 new THREE.TetrahedronGeometry(1.3, 5),
+                 new THREE.TorusKnotGeometry(0.75, 0.28, 128, 32, 6, 3),
+                 new THREE.TorusKnotGeometry(0.65, 0.22, 128, 32, 7, 4),
+                 new THREE.TorusKnotGeometry(0.95, 0.38, 128, 32, 2, 5),
+                 new THREE.TorusGeometry(0.9, 0.35, 64, 128),
+                 new THREE.SphereGeometry(0.8, 128, 128)
+             ];
+            
+            // 创建超高质感Blender风格材质
+             function createBlenderMaterial(color, metalness = 0.9, roughness = 0.1) {
+                 return new THREE.MeshStandardMaterial({
+                     color: color,
+                     metalness: metalness,
+                     roughness: roughness,
+                     envMapIntensity: 2.5,
+                     transparent: true,
+                     opacity: 0.98,
+                     clearcoat: 0.5,
+                     clearcoatRoughness: 0.05,
+                     sheen: 0.3,
+                     sheenRoughness: 0.2,
+                     sheenColor: new THREE.Color(0.2, 0.2, 0.3)
+                 });
+             }
+            
+            // 创建地面物体（原有的25个）
+             for (let i = 0; i < 25; i++) {
+                 const geometry = geometries[i];
+                 const hue = (i / 25) * 360;
+                 const material = createBlenderMaterial(
+                     new THREE.Color().setHSL(hue / 360, 0.8, 0.6),
+                     Math.random() * 0.2 + 0.8,
+                     Math.random() * 0.15 + 0.05
+                 );
+                 
+                 const mesh = new THREE.Mesh(geometry, material);
+                 mesh.position.set(
+                     (Math.random() - 0.5) * 10,
+                     Math.random() * 6 + 3,
+                     (Math.random() - 0.5) * 10
+                 );
+                 mesh.castShadow = true;
+                 mesh.receiveShadow = true;
+                 mesh.userData = { originalY: mesh.position.y, isHovered: false, isFloating: false };
+                 scene.add(mesh);
+                 objects.push(mesh);
+                 
+                 // 创建对应的物理体（增大尺寸）
+                 const physicsShapes = [
+                     new CANNON.Sphere(0.8),  // TorusKnot用球体近似
+                     new CANNON.Sphere(0.7),
+                     new CANNON.Sphere(0.9),
+                     new CANNON.Sphere(0.6),
+                     new CANNON.Sphere(0.85),
+                     new CANNON.Sphere(1.2),  // Octahedron
+                     new CANNON.Sphere(1.2),  // Icosahedron
+                     new CANNON.Sphere(1.2),  // Dodecahedron
+                     new CANNON.Sphere(1.5),  // Tetrahedron
+                     new CANNON.Sphere(1),    // Torus
+                     new CANNON.Sphere(0.8),
+                     new CANNON.Sphere(1.2),
+                     new CANNON.Sphere(1),    // Sphere
+                     new CANNON.Box(new CANNON.Vec3(0.75, 0.75, 0.75)), // Box
+                     new CANNON.Cylinder(1, 1, 2, 8), // Cone
+                     new CANNON.Cylinder(0.8, 0.8, 2, 8), // Cylinder
+                     new CANNON.Sphere(1.0),
+                     new CANNON.Sphere(1.0),
+                     new CANNON.Sphere(1.0),
+                     new CANNON.Sphere(1.3),
+                     new CANNON.Sphere(0.75),
+                     new CANNON.Sphere(0.65),
+                     new CANNON.Sphere(0.95),
+                     new CANNON.Sphere(0.9),
+                     new CANNON.Sphere(0.8)
+                 ];
+                 const shape = physicsShapes[i];
+                 
+                 const body = new CANNON.Body({ mass: 2 }); // 增加质量
+                 body.addShape(shape);
+                 body.position.copy(mesh.position);
+                 body.material = new CANNON.Material({ friction: 0.4, restitution: 0.6 });
+                 body.linearDamping = 0.4; // 添加阻尼
+                 body.angularDamping = 0.4;
+                 world.add(body);
+                 bodies.push(body);
+             }
+             
+             // 创建悬浮物体（15个）
+             const floatingGeometries = [
+                 new THREE.TorusKnotGeometry(0.6, 0.2, 64, 16, 3, 5),
+                 new THREE.IcosahedronGeometry(0.8, 3),
+                 new THREE.OctahedronGeometry(0.9, 3),
+                 new THREE.DodecahedronGeometry(0.7, 2),
+                 new THREE.TorusGeometry(0.8, 0.3, 32, 64),
+                 new THREE.SphereGeometry(0.6, 64, 64),
+                 new THREE.TetrahedronGeometry(1.0, 3),
+                 new THREE.TorusKnotGeometry(0.5, 0.15, 64, 16, 4, 3),
+                 new THREE.ConeGeometry(0.6, 1.2, 32),
+                 new THREE.CylinderGeometry(0.4, 0.4, 1.0, 32),
+                 new THREE.TorusKnotGeometry(0.7, 0.25, 64, 16, 2, 7),
+                 new THREE.IcosahedronGeometry(0.6, 4),
+                 new THREE.OctahedronGeometry(0.7, 4),
+                 new THREE.TorusGeometry(0.6, 0.2, 32, 64),
+                 new THREE.SphereGeometry(0.5, 64, 64)
+             ];
+             
+             // 增加悬浮模型数量到35个，并重新分布位置
+              for (let i = 0; i < 35; i++) {
+                  const geometry = floatingGeometries[i % floatingGeometries.length];
+                  const hue = (i / 35) * 360 + 180; // 不同的色调
+                  const material = createBlenderMaterial(
+                      new THREE.Color().setHSL(hue / 360, 0.7, 0.5),
+                      0.8,
+                      0.2
+                  );
+                  
+                  const mesh = new THREE.Mesh(geometry, material);
+                  
+                  // 重新调整悬浮模型位置，在空中均匀分布
+                   // 摄像头位置在(0, 5, 10)，所以模型需要在z < 10的位置
+                   let x, y, z;
+                   
+                   // 使用球面坐标系统创建均匀分布
+                   const phi = Math.acos(-1 + (2 * i) / 35); // 极角
+                   const theta = Math.sqrt(35 * Math.PI) * phi; // 方位角
+                   
+                   // 转换为笛卡尔坐标，并调整到合适的范围
+                   const radius = 8 + Math.random() * 4; // 半径 8-12
+                   x = radius * Math.sin(phi) * Math.cos(theta);
+                   y = 3 + radius * Math.sin(phi) * Math.sin(theta) * 0.5; // y轴压缩，保持在视野内
+                   z = 2 + (radius * Math.cos(phi) + radius) * 0.25; // z轴控制在摄像头前方
+                   
+                   // 确保所有模型都在视野范围内
+                   x = Math.max(-12, Math.min(12, x));
+                   y = Math.max(1, Math.min(12, y));
+                   z = Math.max(1, Math.min(8, z));
+                   
+                   // 根据距离中心的远近调整尺寸
+                   const distanceFromCenter = Math.sqrt(x*x + (y-6)*(y-6) + (z-4)*(z-4));
+                   const scaleMultiplier = 0.8 + (distanceFromCenter / 15) * 0.8; // 0.8-1.6倍
+                   mesh.scale.setScalar(scaleMultiplier);
+                  
+                  mesh.position.set(x, y, z);
+                  mesh.castShadow = true;
+                  mesh.receiveShadow = true;
+                  mesh.userData = { isFloating: true, isAnimating: false };
+                  scene.add(mesh);
+                  floatingObjects.push(mesh);
+                  
+                  // 记录原始位置
+                  floatingOriginalPositions.push(mesh.position.clone());
+                  
+                  // 创建悬浮物理体（无重力影响）
+                  const body = new CANNON.Body({ mass: 0 }); // 质量为0，不受重力影响
+                  body.addShape(new CANNON.Sphere(0.5));
+                  body.position.copy(mesh.position);
+                  body.type = CANNON.Body.KINEMATIC; // 运动学物体，不受物理力影响
+                  world.add(body);
+                  floatingBodies.push(body);
+              }
+            
+            // 动态高斯模糊背景
+        const backgroundCanvas = document.createElement('canvas');
+        backgroundCanvas.width = 512;
+        backgroundCanvas.height = 512;
+        const backgroundCtx = backgroundCanvas.getContext('2d');
+            
+            function updateBackground() {
+                const time = Date.now() * 0.001;
+                
+                // 创建多层流动渐变
+                const gradient1 = backgroundCtx.createRadialGradient(
+                    256 + Math.sin(time * 0.3) * 150, 
+                    256 + Math.cos(time * 0.2) * 150, 
+                    0,
+                    256, 256, 500
+                );
+                
+                gradient1.addColorStop(0, `hsl(${240 + Math.sin(time * 0.15) * 30}, 80%, 18%)`);
+                gradient1.addColorStop(0.2, `hsl(${260 + Math.cos(time * 0.12) * 25}, 70%, 14%)`);
+                gradient1.addColorStop(0.5, `hsl(${280 + Math.sin(time * 0.08) * 20}, 60%, 10%)`);
+                gradient1.addColorStop(0.8, `hsl(${220 + Math.cos(time * 0.18) * 35}, 85%, 6%)`);
+                gradient1.addColorStop(1, `hsl(${200 + Math.sin(time * 0.25) * 40}, 90%, 3%)`);
+                
+                backgroundCtx.fillStyle = gradient1;
+                backgroundCtx.fillRect(0, 0, 512, 512);
+                
+                // 添加第二层流动渐变
+                backgroundCtx.globalCompositeOperation = 'overlay';
+                const gradient2 = backgroundCtx.createLinearGradient(
+                    Math.sin(time * 0.4) * 256, 0,
+                    Math.cos(time * 0.4) * 256, 512
+                );
+                
+                gradient2.addColorStop(0, `hsla(${300 + Math.sin(time * 0.1) * 20}, 60%, 8%, 0.3)`);
+                gradient2.addColorStop(0.5, `hsla(${250 + Math.cos(time * 0.13) * 15}, 70%, 12%, 0.5)`);
+                gradient2.addColorStop(1, `hsla(${320 + Math.sin(time * 0.17) * 25}, 50%, 5%, 0.2)`);
+                
+                backgroundCtx.fillStyle = gradient2;
+                backgroundCtx.fillRect(0, 0, 512, 512);
+                
+                backgroundCtx.globalCompositeOperation = 'source-over';
+                
+                // 添加流动粒子效果
+                backgroundCtx.globalCompositeOperation = 'screen';
+                for (let i = 0; i < 20; i++) {
+                    const x = (Math.sin(time * 0.1 + i) * 0.5 + 0.5) * 512;
+                    const y = (Math.cos(time * 0.08 + i * 0.5) * 0.5 + 0.5) * 512;
+                    const size = Math.sin(time * 0.2 + i) * 3 + 5;
+                    
+                    const particleGradient = backgroundCtx.createRadialGradient(x, y, 0, x, y, size);
+                    particleGradient.addColorStop(0, `hsla(${240 + i * 10}, 80%, 40%, 0.1)`);
+                    particleGradient.addColorStop(1, 'hsla(240, 80%, 40%, 0)');
+                    
+                    backgroundCtx.fillStyle = particleGradient;
+                    backgroundCtx.beginPath();
+                    backgroundCtx.arc(x, y, size, 0, Math.PI * 2);
+                    backgroundCtx.fill();
+                }
+                
+                backgroundCtx.globalCompositeOperation = 'source-over';
+                backgroundTexture.needsUpdate = true;
+            }
+            
+            const backgroundTexture = new THREE.CanvasTexture(backgroundCanvas);
+            backgroundTexture.minFilter = THREE.LinearFilter;
+            backgroundTexture.magFilter = THREE.LinearFilter;
+            scene.background = backgroundTexture;
+            
+            // 定期更新背景和地面
+            setInterval(() => {
+                updateBackground();
+                updateGroundWave();
+            }, 50); // 更频繁的更新，更流畅的效果
+            updateBackground();
+            
+            // 高级光照系统（调整为昏暗氛围）
+            const ambientLight = new THREE.AmbientLight(0x2a2a3a, 0.2); // 进一步降低环境光
+            scene.add(ambientLight);
+            
+            // 添加雾效果，增强深度感
+            scene.fog = new THREE.Fog(0x1a1a2e, 10, 50);
+            
+            // 添加流动变化的地面平面
+            const groundGeometry = new THREE.PlaneGeometry(50, 50, 128, 128);
+            const groundMaterial = new THREE.MeshStandardMaterial({
+                color: 0x1a1a2e,
+                metalness: 0.1,
+                roughness: 0.9,
+                transparent: true,
+                opacity: 0.15, // 大幅降低透明度，几乎隐形
+                fog: true,
+                side: THREE.DoubleSide
+            });
+            const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
+            groundMesh.rotation.x = -Math.PI / 2;
+            groundMesh.position.y = -8;
+            groundMesh.receiveShadow = true;
+            scene.add(groundMesh);
+            
+            // 添加地面波动效果
+            function updateGroundWave() {
+                const time = Date.now() * 0.001;
+                const positions = groundGeometry.attributes.position;
+                
+                for (let i = 0; i < positions.count; i++) {
+                    const x = positions.getX(i);
+                    const z = positions.getZ(i);
+                    const wave = Math.sin(x * 0.1 + time) * Math.cos(z * 0.1 + time * 0.7) * 0.3;
+                    positions.setY(i, wave);
+                }
+                
+                positions.needsUpdate = true;
+                groundGeometry.computeVertexNormals();
+                
+                // 动态调整地面颜色和透明度
+                const opacity = 0.1 + Math.sin(time * 0.5) * 0.05; // 0.05-0.15之间变化
+                const hue = (240 + Math.sin(time * 0.3) * 30) / 360; // 蓝紫色调变化
+                groundMaterial.opacity = opacity;
+                groundMaterial.color.setHSL(hue, 0.6, 0.1);
+            }
+            
+            const directionalLight = new THREE.DirectionalLight(0x9a9aaa, 1.2);
+            directionalLight.position.set(10, 15, 5);
+            directionalLight.castShadow = true;
+            directionalLight.shadow.mapSize.width = 4096;
+            directionalLight.shadow.mapSize.height = 4096;
+            directionalLight.shadow.camera.near = 0.5;
+            directionalLight.shadow.camera.far = 50;
+            directionalLight.shadow.camera.left = -25;
+            directionalLight.shadow.camera.right = 25;
+            directionalLight.shadow.camera.top = 25;
+            directionalLight.shadow.camera.bottom = -25;
+            scene.add(directionalLight);
+            
+            const pointLight1 = new THREE.PointLight(0x4a5c7a, 0.8, 25);
+            pointLight1.position.set(-8, 8, 8);
+            pointLight1.castShadow = true;
+            scene.add(pointLight1);
+            
+            const pointLight2 = new THREE.PointLight(0x7a4a6b, 0.8, 25);
+            pointLight2.position.set(8, 8, -8);
+            pointLight2.castShadow = true;
+            scene.add(pointLight2);
+            
+            const pointLight3 = new THREE.PointLight(0x5a7a4a, 0.6, 20);
+            pointLight3.position.set(0, 12, 0);
+            scene.add(pointLight3);
+            
+            camera.position.set(0, 5, 10);
+            camera.lookAt(0, 0, 0);
+            
+            // 增强鼠标交互系统
+             const raycaster = new THREE.Raycaster();
+             const mouse = new THREE.Vector2();
+             let selectedObject = null;
+             let selectedBody = null;
+             let isDragging = false;
+             let hoveredObject = null;
+             
+             function onMouseMove(event) {
+                 mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                 mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+                 
+                 // 检测悬停
+                 raycaster.setFromCamera(mouse, camera);
+                 const allObjects = [...objects, ...floatingObjects];
+                 const intersects = raycaster.intersectObjects(allObjects);
+                 
+                 // 重置之前悬停的物体
+                 if (hoveredObject && hoveredObject !== selectedObject) {
+                     hoveredObject.userData.isHovered = false;
+                 }
+                 
+                 // 设置新的悬停物体
+                 if (intersects.length > 0 && !isDragging) {
+                     hoveredObject = intersects[0].object;
+                     hoveredObject.userData.isHovered = true;
+                     canvas.style.cursor = 'pointer';
+                 } else {
+                     hoveredObject = null;
+                     canvas.style.cursor = 'default';
+                 }
+                 
+                 // 拖拽逻辑
+                 if (isDragging && selectedBody) {
+                     const intersectPoint = new THREE.Vector3();
+                     raycaster.ray.intersectPlane(
+                         new THREE.Plane(new THREE.Vector3(0, 0, 1), 0),
+                         intersectPoint
+                     );
+                     
+                     const force = new CANNON.Vec3(
+                         (intersectPoint.x - selectedBody.position.x) * 25, // 降低力度
+                         (intersectPoint.y - selectedBody.position.y) * 25,
+                         0
+                     );
+                     selectedBody.applyForce(force, selectedBody.position);
+                 }
+             }
+             
+             function onMouseDown(event) {
+                 mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                 mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+                 
+                 raycaster.setFromCamera(mouse, camera);
+                 const allObjects = [...objects, ...floatingObjects];
+                 const intersects = raycaster.intersectObjects(allObjects);
+                 
+                 if (intersects.length > 0) {
+                     selectedObject = intersects[0].object;
+                     const groundIndex = objects.indexOf(selectedObject);
+                     const floatingIndex = floatingObjects.indexOf(selectedObject);
+                     
+                     if (groundIndex !== -1) {
+                         // 地面物体点击效果
+                         selectedBody = bodies[groundIndex];
+                         isDragging = true;
+                         
+                         const throwForce = new CANNON.Vec3(
+                             (Math.random() - 0.5) * 15,
+                             Math.random() * 20 + 10,
+                             (Math.random() - 0.5) * 15
+                         );
+                         selectedBody.applyImpulse(throwForce, selectedBody.position);
+                     } else if (floatingIndex !== -1) {
+                         // 悬浮物体点击效果：上下晃动
+                         const floatingMesh = floatingObjects[floatingIndex];
+                         const originalPos = floatingOriginalPositions[floatingIndex];
+                         
+                         floatingMesh.userData.isAnimating = true;
+                         
+                         // 创建晃动动画
+                         const startTime = Date.now();
+                         const animateBounce = () => {
+                             const elapsed = (Date.now() - startTime) / 1000;
+                             const duration = 2.0; // 动画持续2秒
+                             
+                             if (elapsed < duration) {
+                                 const progress = elapsed / duration;
+                                 const bounce = Math.sin(progress * Math.PI * 4) * Math.exp(-progress * 3);
+                                 floatingMesh.position.y = originalPos.y + bounce * 3;
+                                 floatingBodies[floatingIndex].position.y = floatingMesh.position.y;
+                                 requestAnimationFrame(animateBounce);
+                             } else {
+                                 // 归位
+                                 floatingMesh.position.copy(originalPos);
+                                 floatingBodies[floatingIndex].position.copy(originalPos);
+                                 floatingMesh.userData.isAnimating = false;
+                             }
+                         };
+                         animateBounce();
+                     }
+                 }
+             }
+             
+             function onMouseUp() {
+                 selectedObject = null;
+                 selectedBody = null;
+                 isDragging = false;
+             }
+             
+             canvas.addEventListener('mousemove', onMouseMove);
+             canvas.addEventListener('mousedown', onMouseDown);
+             canvas.addEventListener('mouseup', onMouseUp);
+            
+            // 添加温和的随机力和悬浮效果
+             function addRandomForces() {
+                 bodies.forEach((body, index) => {
+                     // 降低随机力频率和强度
+                     if (Math.random() < 0.005) {
+                         const force = new CANNON.Vec3(
+                             (Math.random() - 0.5) * 8,
+                             Math.random() * 5,
+                             (Math.random() - 0.5) * 8
+                         );
+                         body.applyForce(force, body.position);
+                     }
+                 });
+             }
+             
+             // 悬浮效果
+             function updateFloatingEffect() {
+                 objects.forEach((obj, index) => {
+                     if (obj.userData.isHovered && !isDragging) {
+                         const time = Date.now() * 0.003;
+                         const floatOffset = Math.sin(time + index) * 0.3;
+                         const targetY = obj.userData.originalY + 1.5 + floatOffset;
+                         
+                         // 温和的悬浮力
+                         const currentY = bodies[index].position.y;
+                         const floatForce = (targetY - currentY) * 8;
+                         bodies[index].applyForce(new CANNON.Vec3(0, floatForce, 0), bodies[index].position);
+                     }
+                 });
+             }
+            
+            // 动画循环
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // 更新物理世界
+                world.step(1/60);
+                
+                // 同步地面物体
+                for (let i = 0; i < objects.length; i++) {
+                    objects[i].position.copy(bodies[i].position);
+                    objects[i].quaternion.copy(bodies[i].quaternion);
+                    
+                    // 动态颜色变化（更柔和的色彩）
+                    const time = Date.now() * 0.001;
+                    const hue = ((time * 0.05 + i * 0.067) % 1);
+                    objects[i].material.color.setHSL(hue, 0.7, 0.5);
+                    
+                    // 边界检查，防止物体掉落太远
+                 if (bodies[i].position.y < -12) {
+                     bodies[i].position.set(
+                         (Math.random() - 0.5) * 10,
+                         Math.random() * 6 + 8,
+                         (Math.random() - 0.5) * 10
+                     );
+                     bodies[i].velocity.set(0, 0, 0);
+                     bodies[i].angularVelocity.set(0, 0, 0);
+                     objects[i].userData.originalY = bodies[i].position.y;
+                 }
+                }
+                
+                // 悬浮物体的缓慢旋转和浮动
+                 const floatingTime = Date.now() * 0.001;
+                 for (let i = 0; i < floatingObjects.length; i++) {
+                     const mesh = floatingObjects[i];
+                     const originalPos = floatingOriginalPositions[i];
+                     
+                     // 缓慢旋转
+                     mesh.rotation.x += 0.005;
+                     mesh.rotation.y += 0.003;
+                     mesh.rotation.z += 0.002;
+                     
+                     // 轻微浮动（如果没有在执行点击动画）
+                     if (!mesh.userData.isAnimating) {
+                         const floatOffset = Math.sin(floatingTime * 0.5 + i) * 0.5;
+                         mesh.position.y = originalPos.y + floatOffset;
+                         floatingBodies[i].position.copy(mesh.position);
+                     }
+                     
+                     // 悬浮物体颜色变化
+                     const hue = (i / floatingObjects.length + floatingTime * 0.03 + 0.5) % 1;
+                     mesh.material.color.setHSL(hue, 0.7, 0.5);
+                 }
+                
+                // 添加随机力和悬浮效果
+                 addRandomForces();
+                 updateFloatingEffect();
+                
+                // 相机轻微摆动
+                const time = Date.now() * 0.001;
+                camera.position.x = Math.sin(time * 0.5) * 2;
+                camera.position.y = 5 + Math.sin(time * 0.3) * 1;
+                camera.lookAt(0, 0, 0);
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // 响应式处理
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+        
+        // 滚动动画初始化
+        function initScrollAnimations() {
+            // Hero标题动画
+            gsap.fromTo('.hero-title', 
+                { y: 100, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1.5, ease: 'power3.out' }
+            );
+            
+            gsap.fromTo('.hero-subtitle', 
+                { y: 50, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1.5, delay: 0.3, ease: 'power3.out' }
+            );
+            
+            // 滚动指示器动画
+            gsap.fromTo('.scroll-indicator', 
+                { opacity: 0 },
+                { opacity: 1, duration: 1, delay: 1 }
+            );
+            
+            // 各个section的进入动画
+            gsap.utils.toArray('.section-title').forEach(title => {
+                gsap.fromTo(title, 
+                    { y: 100, opacity: 0 },
+                    {
+                        y: 0, 
+                        opacity: 1, 
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: title,
+                            start: 'top 80%',
+                            end: 'bottom 20%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+            });
+        }
+    </script>
+</body>
+</html>
