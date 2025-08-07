@@ -179,7 +179,18 @@
             width: 100%;
             height: 100vh;
             overflow: hidden;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            background: #180525;
+        }
+
+        .liquid-bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            filter: blur(25px);
+            opacity: 0.9;
         }
 
         #liquid-canvas {
@@ -239,6 +250,29 @@
             }
         }
 
+        @keyframes colorShift {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+                filter: hue-rotate(0deg) saturate(1) brightness(1);
+            }
+            20% {
+                transform: translate(-3%, 2%) rotate(0.5deg);
+                filter: hue-rotate(15deg) saturate(1.1) brightness(1.05);
+            }
+            40% {
+                transform: translate(2%, -2%) rotate(-0.3deg);
+                filter: hue-rotate(30deg) saturate(1.2) brightness(0.95);
+            }
+            60% {
+                transform: translate(-1%, 3%) rotate(0.2deg);
+                filter: hue-rotate(45deg) saturate(1.15) brightness(1.1);
+            }
+            80% {
+                transform: translate(3%, -1%) rotate(-0.4deg);
+                filter: hue-rotate(60deg) saturate(1.05) brightness(0.9);
+            }
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .hero-title {
@@ -271,6 +305,7 @@
     <main class="content-flow">
         <!-- 液态文字交互演示 -->
         <section class="liquid-text-section">
+            <canvas class="liquid-bg-canvas" id="liquidBgCanvas"></canvas>
             <canvas id="liquid-canvas"></canvas>
             <div class="liquid-text-container">
                 <div class="liquid-text" id="liquidText">DISSOLVE YOURSELF</div>
@@ -986,8 +1021,80 @@
         function initLiquidTextEffect() {
             const canvas = document.getElementById('liquid-canvas');
             const textElement = document.getElementById('liquidText');
+            const bgCanvas = document.getElementById('liquidBgCanvas');
             
-            if (!canvas || !textElement) return;
+            if (!canvas || !textElement || !bgCanvas) return;
+            
+            // 初始化动态高斯模糊背景
+            initLiquidBackground(bgCanvas);
+            
+            function initLiquidBackground(bgCanvas) {
+                const ctx = bgCanvas.getContext('2d');
+                
+                function resizeBgCanvas() {
+                    bgCanvas.width = window.innerWidth;
+                    bgCanvas.height = window.innerHeight;
+                }
+                resizeBgCanvas();
+                
+                function animateBackground() {
+                    const time = Date.now() * 0.0015; // 加快动画速度
+                    
+                    // 清除画布
+                    ctx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+                    
+                    // 设置混合模式
+                    ctx.globalCompositeOperation = 'source-over';
+                    
+                    // 基础色调 #180525
+                    const baseHue = 285; // #180525 对应的色相
+                    
+                    // 创建多层动态渐变
+                    for (let i = 0; i < 8; i++) {
+                        const hueShift = Math.sin(time + i * 0.5) * 60; // 增大色相变化范围
+                        const saturation = 70 + Math.sin(time * 0.4 + i) * 30; // 增强饱和度变化
+                        const lightness = 20 + Math.sin(time * 0.3 + i * 0.3) * 15; // 增强亮度变化
+                        
+                        const x = (Math.sin(time * 0.1 + i) * 0.3 + 0.5) * bgCanvas.width;
+                        const y = (Math.cos(time * 0.08 + i * 0.7) * 0.3 + 0.5) * bgCanvas.height;
+                        const radius = (Math.sin(time * 0.15 + i * 0.4) * 0.2 + 0.4) * Math.min(bgCanvas.width, bgCanvas.height);
+                        
+                        const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+                        gradient.addColorStop(0, `hsla(${baseHue + hueShift}, ${saturation}%, ${lightness + 10}%, 0.6)`);
+                        gradient.addColorStop(0.5, `hsla(${baseHue + hueShift * 0.7}, ${saturation * 0.8}%, ${lightness * 0.7 + 8}%, 0.3)`);
+                        gradient.addColorStop(1, 'hsla(285, 60%, 15%, 0)');
+                        
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+                    }
+                    
+                    // 添加流动粒子
+                    for (let i = 0; i < 15; i++) {
+                        const particleTime = time + i * 0.4;
+                        const x = (Math.sin(particleTime * 0.18) * 0.5 + 0.5) * bgCanvas.width; // 加快运动速度
+                        const y = (Math.cos(particleTime * 0.14) * 0.5 + 0.5) * bgCanvas.height; // 加快运动速度
+                        const size = (Math.sin(particleTime * 0.3) * 0.6 + 0.6) * 100; // 增大粒子尺寸
+                        
+                        const hue = baseHue + Math.sin(particleTime) * 80; // 增大色相变化范围
+                        const particleSat = 80 + Math.sin(particleTime * 0.5) * 20; // 动态饱和度
+                        const particleLight = 40 + Math.sin(particleTime * 0.7) * 20; // 动态亮度
+                        const particleGradient = ctx.createRadialGradient(x, y, 0, x, y, size);
+                        particleGradient.addColorStop(0, `hsla(${hue}, ${particleSat}%, ${particleLight}%, 0.5)`);
+                        particleGradient.addColorStop(1, 'hsla(285, 70%, 25%, 0)');
+                        
+                        ctx.fillStyle = particleGradient;
+                        ctx.beginPath();
+                        ctx.arc(x, y, size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    
+                    requestAnimationFrame(animateBackground);
+                }
+                
+                animateBackground();
+                
+                window.addEventListener('resize', resizeBgCanvas);
+            }
             
             // Three.js 场景设置
             const scene = new THREE.Scene();
