@@ -166,70 +166,55 @@
             }
         }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-arrow {
-            width: 30px;
-            height: 30px;
-            border: 2px solid #fff;
-            border-top: none;
-            border-left: none;
-            transform: rotate(45deg);
-            opacity: 0.7;
-        }
-
-        /* 技术展示区域 */
-        .tech-sections {
+        /* 内容流区域 */
+        .content-flow {
             position: relative;
             z-index: 5;
-        }
-
-        .section {
             min-height: 100vh;
-            padding: 80px 20px;
+        }
+
+        /* 液态文字交互演示 */
+        .liquid-text-section {
             position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
         }
 
-        .section-title {
-            font-size: clamp(2rem, 5vw, 4rem);
+        #liquid-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .liquid-text-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .liquid-text {
+            font-family: 'Technonomicon', monospace;
+            font-size: clamp(4rem, 12vw, 12rem);
+            font-weight: bold;
+            color: #ffffff;
             text-align: center;
-            margin-bottom: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* 3D渲染区域 */
-        .render-section {
-            background: radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
-        }
-
-        /* 粒子系统区域 */
-        .particle-section {
-            background: radial-gradient(ellipse at center, #2d1b69 0%, #11998e 50%, #0f0f23 100%);
-        }
-
-        /* 液态金属区域 */
-        .liquid-section {
-            background: radial-gradient(ellipse at center, #434343 0%, #000000 100%);
-        }
-
-        /* 滚动交互区域 */
-        .scroll-section {
-            background: radial-gradient(ellipse at center, #8360c3 0%, #2ebf91 100%);
-        }
-
-        /* 高级交互区域 */
-        .interaction-section {
-            background: radial-gradient(ellipse at center, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            line-height: 1.2;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         /* 动画 */
@@ -279,53 +264,19 @@
             <h1 class="hero-title">TUTORIALS</h1>
             <p class="hero-subtitle terminal-text" id="terminalSubtitle">VIBING CODING<span class="cursor">_</span></p>
         </div>
-        <div class="scroll-indicator">
-            <div class="scroll-arrow"></div>
-        </div>
+
     </section>
 
-    <!-- 技术展示区域 -->
-    <div class="tech-sections">
-        <!-- 3D渲染实时交互区域 -->
-        <section class="section render-section" id="render">
-            <h2 class="section-title">3D 渲染实时交互</h2>
-            <div class="render-container">
-                <!-- 3D内容将在这里渲染 -->
+    <!-- 后续内容区域 -->
+    <main class="content-flow">
+        <!-- 液态文字交互演示 -->
+        <section class="liquid-text-section">
+            <canvas id="liquid-canvas"></canvas>
+            <div class="liquid-text-container">
+                <div class="liquid-text" id="liquidText">DISSOLVE YOURSELF</div>
             </div>
         </section>
-
-        <!-- 粒子系统展示区 -->
-        <section class="section particle-section" id="particles">
-            <h2 class="section-title">粒子系统动画</h2>
-            <div class="particle-container">
-                <!-- 粒子效果将在这里渲染 -->
-            </div>
-        </section>
-
-        <!-- 液态金属效果区域 -->
-        <section class="section liquid-section" id="liquid">
-            <h2 class="section-title">液态金属效果</h2>
-            <div class="liquid-container">
-                <!-- 液态效果将在这里渲染 -->
-            </div>
-        </section>
-
-        <!-- 滚动交互展示区 -->
-        <section class="section scroll-section" id="scroll-effects">
-            <h2 class="section-title">滚动交互特效</h2>
-            <div class="scroll-container">
-                <!-- 滚动效果将在这里展示 -->
-            </div>
-        </section>
-
-        <!-- 高级交互区域 -->
-        <section class="section interaction-section" id="interactions">
-            <h2 class="section-title">高级交互体验</h2>
-            <div class="interaction-container">
-                <!-- 交互效果将在这里展示 -->
-            </div>
-        </section>
-    </div>
+    </main>
 
     <!-- 引入必要的库 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -1025,29 +976,192 @@
                 { y: 0, opacity: 1, duration: 1.5, delay: 0.3, ease: 'power3.out' }
             );
             
-            // 滚动指示器动画
-            gsap.fromTo('.scroll-indicator', 
-                { opacity: 0 },
-                { opacity: 1, duration: 1, delay: 1 }
-            );
+            // 为后续内容预留动画空间
             
-            // 各个section的进入动画
-            gsap.utils.toArray('.section-title').forEach(title => {
-                gsap.fromTo(title, 
-                    { y: 100, opacity: 0 },
-                    {
-                        y: 0, 
-                        opacity: 1, 
-                        duration: 1,
-                        scrollTrigger: {
-                            trigger: title,
-                            start: 'top 80%',
-                            end: 'bottom 20%',
-                            toggleActions: 'play none none reverse'
-                        }
-                    }
-                );
+            // 液态文字交互演示初始化
+            initLiquidTextEffect();
+        }
+        
+        // 液态文字交互效果
+        function initLiquidTextEffect() {
+            const canvas = document.getElementById('liquid-canvas');
+            const textElement = document.getElementById('liquidText');
+            
+            if (!canvas || !textElement) return;
+            
+            // Three.js 场景设置
+            const scene = new THREE.Scene();
+            const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+            const renderer = new THREE.WebGLRenderer({ 
+                canvas: canvas, 
+                alpha: true,
+                antialias: true
             });
+            
+            // 响应式设置
+            function updateSize() {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                renderer.setSize(width, height);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            }
+            updateSize();
+            
+            // 创建文字纹理
+            function createTextTexture() {
+                const textCanvas = document.createElement('canvas');
+                const ctx = textCanvas.getContext('2d');
+                
+                // 高分辨率设置
+                const scale = 2;
+                textCanvas.width = 2048 * scale;
+                textCanvas.height = 1024 * scale;
+                ctx.scale(scale, scale);
+                
+                // 文字样式
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 120px Technonomicon, monospace';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                // 绘制文字
+                const lines = ['DISSOLVE', 'YOURSELF'];
+                lines.forEach((line, index) => {
+                    ctx.fillText(line, textCanvas.width / (2 * scale), 
+                        (textCanvas.height / (2 * scale)) + (index - 0.5) * 150);
+                });
+                
+                return new THREE.CanvasTexture(textCanvas);
+            }
+            
+            // 着色器材质
+            const vertexShader = `
+                varying vec2 vUv;
+                void main() {
+                    vUv = uv;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `;
+            
+            const fragmentShader = `
+                uniform float uTime;
+                uniform vec2 uMouse;
+                uniform sampler2D uTexture;
+                uniform float uDissolveRadius;
+                uniform float uDissolveStrength;
+                varying vec2 vUv;
+                
+                // 噪声函数
+                float random(vec2 st) {
+                    return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+                }
+                
+                float noise(vec2 st) {
+                    vec2 i = floor(st);
+                    vec2 f = fract(st);
+                    float a = random(i);
+                    float b = random(i + vec2(1.0, 0.0));
+                    float c = random(i + vec2(0.0, 1.0));
+                    float d = random(i + vec2(1.0, 1.0));
+                    vec2 u = f * f * (3.0 - 2.0 * f);
+                    return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+                }
+                
+                void main() {
+                    vec2 uv = vUv;
+                    
+                    // 鼠标距离计算
+                    float mouseDistance = distance(uv, uMouse);
+                    float dissolveEffect = smoothstep(uDissolveRadius, 0.0, mouseDistance);
+                    
+                    // 噪声驱动的溶解效果
+                    float noiseValue = noise(uv * 8.0 + uTime * 0.5);
+                    float dissolve = dissolveEffect * uDissolveStrength;
+                    
+                    // UV扭曲
+                    vec2 distortion = vec2(
+                        sin(uTime * 2.0 + uv.y * 10.0) * dissolve * 0.1,
+                        cos(uTime * 1.5 + uv.x * 8.0) * dissolve * 0.1
+                    );
+                    
+                    vec2 distortedUV = uv + distortion;
+                    
+                    // 采样纹理
+                    vec4 textColor = texture2D(uTexture, distortedUV);
+                    
+                    // 溶解边缘效果
+                    float alpha = textColor.a;
+                    alpha *= (1.0 - dissolve * (noiseValue * 0.8 + 0.2));
+                    
+                    // 颜色变化
+                    vec3 color = textColor.rgb;
+                    color = mix(color, vec3(0.2, 0.8, 1.0), dissolve * 0.3);
+                    
+                    gl_FragColor = vec4(color, alpha);
+                }
+            `;
+            
+            // 创建材质和几何体
+            const textTexture = createTextTexture();
+            const material = new THREE.ShaderMaterial({
+                uniforms: {
+                    uTime: { value: 0 },
+                    uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+                    uTexture: { value: textTexture },
+                    uDissolveRadius: { value: 0.15 },
+                    uDissolveStrength: { value: 1.0 }
+                },
+                vertexShader,
+                fragmentShader,
+                transparent: true
+            });
+            
+            const geometry = new THREE.PlaneGeometry(2, 2);
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+            
+            // 鼠标交互
+            const mouse = new THREE.Vector2();
+            let isMouseOver = false;
+            
+            function onMouseMove(event) {
+                mouse.x = event.clientX / window.innerWidth;
+                mouse.y = 1.0 - (event.clientY / window.innerHeight);
+                material.uniforms.uMouse.value.set(mouse.x, mouse.y);
+                isMouseOver = true;
+            }
+            
+            function onMouseLeave() {
+                isMouseOver = false;
+            }
+            
+            canvas.addEventListener('mousemove', onMouseMove);
+            canvas.addEventListener('mouseleave', onMouseLeave);
+            
+            // 动画循环
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                const time = performance.now() * 0.001;
+                material.uniforms.uTime.value = time;
+                
+                // 平滑的溶解强度过渡
+                const targetStrength = isMouseOver ? 1.0 : 0.0;
+                material.uniforms.uDissolveStrength.value += 
+                    (targetStrength - material.uniforms.uDissolveStrength.value) * 0.05;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // 显示文字元素作为备用
+            setTimeout(() => {
+                textElement.style.opacity = '0.1';
+            }, 100);
+            
+            // 窗口大小变化处理
+            window.addEventListener('resize', updateSize);
         }
     </script>
 </body>
