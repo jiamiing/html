@@ -273,6 +273,711 @@
             }
         }
 
+        /* 滚动交互展示区样式 */
+        .scroll-interaction-section {
+            position: relative;
+            background: linear-gradient(180deg, #001100 0%, #002200 50%, #003300 100%);
+            min-height: 500vh; /* 足够长的滚动区域 */
+            overflow: hidden;
+            font-family: 'Pixely', monospace;
+            /* 复古终端扫描线效果 */
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 255, 0, 0.03) 2px,
+                    rgba(0, 255, 0, 0.03) 4px
+                );
+            /* 终端闪烁效果 */
+            animation: terminalFlicker 0.15s infinite linear alternate;
+        }
+        
+        @keyframes terminalFlicker {
+            0% { opacity: 1; }
+            98% { opacity: 1; }
+            99% { opacity: 0.98; }
+            100% { opacity: 1; }
+        }
+        
+        .scroll-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 100px 50px;
+        }
+        
+        /* 标题区域 */
+        .scroll-title-area {
+            text-align: center;
+            margin-bottom: 200px;
+            opacity: 0;
+            transform: translateY(100px);
+        }
+        
+        .scroll-main-title {
+            font-family: 'Pixely', monospace;
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            color: #00ff00;
+            text-shadow: 
+                0 0 5px #00ff00,
+                0 0 10px #00ff00,
+                0 0 15px #00ff00,
+                0 0 20px #00ff00;
+            margin-bottom: 20px;
+            letter-spacing: 0.2em;
+            animation: terminalGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes terminalGlow {
+            0% { 
+                text-shadow: 
+                    0 0 5px #00ff00,
+                    0 0 10px #00ff00,
+                    0 0 15px #00ff00,
+                    0 0 20px #00ff00;
+            }
+            100% { 
+                text-shadow: 
+                    0 0 10px #00ff00,
+                    0 0 20px #00ff00,
+                    0 0 30px #00ff00,
+                    0 0 40px #00ff00;
+            }
+        }
+        
+        .scroll-subtitle {
+            font-family: 'Pixely', monospace;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: #00cc00;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #00cc00;
+        }
+        
+        /* 终端元素容器 */
+        .terminal-elements-container {
+            position: relative;
+            width: 100%;
+            height: 300vh;
+            margin: 200px 0;
+        }
+        
+        .terminal-element {
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.8);
+            background: rgba(0, 20, 0, 0.8);
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 0, 0.3),
+                inset 0 0 20px rgba(0, 255, 0, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        /* 大小类 */
+        .terminal-element.size-small {
+            font-size: 0.7em;
+            padding: 8px;
+            transform: scale(0.6);
+        }
+        
+        .terminal-element.size-medium {
+            font-size: 0.9em;
+            padding: 15px;
+            transform: scale(0.8);
+        }
+        
+        .terminal-element.size-large {
+            font-size: 1.2em;
+            padding: 20px;
+            transform: scale(1.0);
+        }
+        
+        /* ASCII艺术元素 */
+        .ascii-art-1 {
+            top: 10%;
+            left: 10%;
+            z-index: 3;
+        }
+        
+        .ascii-art-2 {
+            top: 25%;
+            right: 15%;
+            z-index: 3;
+        }
+        
+        .ascii-art-3 {
+            top: 5%;
+            left: 60%;
+            z-index: 4;
+        }
+        
+        .ascii-art-4 {
+            top: 40%;
+            left: 5%;
+            z-index: 2;
+        }
+        
+        .ascii-art-5 {
+            top: 55%;
+            right: 5%;
+            z-index: 3;
+        }
+        
+        .ascii-art-6 {
+            top: 70%;
+            left: 30%;
+            z-index: 1;
+        }
+        
+        .ascii-art-7 {
+            top: 15%;
+            left: 35%;
+            z-index: 5;
+        }
+        
+        .ascii-text {
+            font-family: 'Pixely', monospace;
+            font-size: 1.2rem;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            line-height: 1.2;
+            margin: 0;
+            white-space: pre;
+        }
+        
+        /* 代码块元素 */
+        .code-block-1 {
+            top: 45%;
+            left: 5%;
+            z-index: 2;
+        }
+        
+        .code-block-2 {
+            top: 20%;
+            right: 25%;
+            z-index: 3;
+        }
+        
+        .code-block-3 {
+            top: 65%;
+            left: 70%;
+            z-index: 1;
+        }
+        
+        .code-block-4 {
+            top: 80%;
+            left: 15%;
+            z-index: 2;
+        }
+        
+        .code-block-5 {
+            top: 35%;
+            right: 40%;
+            z-index: 1;
+        }
+        
+        .code-text {
+            font-family: 'Pixely', monospace;
+            font-size: 1rem;
+            color: #00cc00;
+            text-shadow: 0 0 8px #00cc00;
+            line-height: 1.4;
+            margin: 0;
+            white-space: pre;
+        }
+        
+        /* 矩阵雨效果 */
+        .matrix-rain {
+            top: 15%;
+            left: 50%;
+            z-index: 4;
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .matrix-rain-2 {
+            top: 50%;
+            left: 25%;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .matrix-rain-3 {
+            top: 75%;
+            right: 30%;
+            z-index: 3;
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .matrix-rain-4 {
+            top: 30%;
+            left: 80%;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .matrix-column {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .matrix-column span {
+            font-family: 'Pixely', monospace;
+            font-size: 1.5rem;
+            color: #00ff00;
+            text-shadow: 0 0 15px #00ff00;
+            animation: matrixFall 2s infinite linear;
+        }
+        
+        .matrix-column span:nth-child(2) { animation-delay: 0.5s; }
+        .matrix-column span:nth-child(3) { animation-delay: 1s; }
+        .matrix-column span:nth-child(4) { animation-delay: 1.5s; }
+        
+        @keyframes matrixFall {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0.3; transform: translateY(20px); }
+        }
+        
+        /* 终端提示符 */
+        .terminal-prompt {
+            top: 60%;
+            right: 10%;
+            z-index: 2;
+            min-width: 300px;
+        }
+        
+        .terminal-prompt-2 {
+            top: 85%;
+            left: 45%;
+            z-index: 3;
+            min-width: 200px;
+        }
+        
+        .terminal-prompt-3 {
+            top: 25%;
+            left: 15%;
+            z-index: 1;
+            min-width: 250px;
+        }
+        
+        .terminal-prompt-4 {
+            top: 90%;
+            right: 35%;
+            z-index: 2;
+            min-width: 180px;
+        }
+        
+        .prompt-text {
+            font-family: 'Pixely', monospace;
+            font-size: 0.9rem;
+            color: #00dd00;
+            text-shadow: 0 0 8px #00dd00;
+            line-height: 1.3;
+            margin: 0;
+            white-space: pre;
+        }
+        
+        /* 电路图案 */
+        .circuit-pattern {
+            top: 35%;
+            right: 30%;
+            z-index: 1;
+            width: 120px;
+            height: 120px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+        
+        .circuit-pattern-2 {
+            top: 10%;
+            left: 85%;
+            z-index: 2;
+            width: 80px;
+            height: 80px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+        
+        .circuit-pattern-3 {
+            top: 50%;
+            right: 5%;
+            z-index: 4;
+            width: 150px;
+            height: 150px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+        
+        .circuit-pattern-4 {
+            top: 95%;
+            left: 5%;
+            z-index: 1;
+            width: 60px;
+            height: 60px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+        
+        .circuit-lines {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .line {
+            position: absolute;
+            background: #00ff00;
+            box-shadow: 0 0 10px #00ff00;
+        }
+        
+        .line.horizontal {
+            width: 80px;
+            height: 2px;
+            top: 50%;
+            left: 20px;
+        }
+        
+        .line.vertical {
+            width: 2px;
+            height: 60px;
+            left: 50%;
+            top: 30px;
+        }
+        
+        .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #00ff00;
+            animation: nodePulse 2s infinite;
+        }
+        
+        .node:first-of-type {
+            top: 46px;
+            left: 56px;
+        }
+        
+        .node.node-2 {
+            top: 46px;
+            left: 96px;
+            animation-delay: 1s;
+        }
+        
+        @keyframes nodePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+        
+        /* 进度条 */
+        .progress-bars {
+            top: 75%;
+            left: 25%;
+            z-index: 2;
+            min-width: 200px;
+        }
+        
+        .progress-bars-2 {
+            top: 40%;
+            right: 15%;
+            z-index: 1;
+            min-width: 150px;
+        }
+        
+        .progress-bars-3 {
+            top: 5%;
+            left: 25%;
+            z-index: 3;
+            min-width: 250px;
+        }
+        
+        .progress-bars-4 {
+            top: 65%;
+            right: 45%;
+            z-index: 2;
+            min-width: 120px;
+        }
+        
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .progress-label {
+            font-family: 'Pixely', monospace;
+            font-size: 0.9rem;
+            color: #00cc00;
+            text-shadow: 0 0 8px #00cc00;
+        }
+        
+        .progress-bar {
+            width: 150px;
+            height: 8px;
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #00ff00;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #00cc00);
+            box-shadow: 0 0 10px #00ff00;
+            animation: progressPulse 3s infinite;
+        }
+        
+        .progress-fill.cpu {
+            width: 75%;
+        }
+        
+        .progress-fill.ram {
+            width: 60%;
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* 十六进制显示 */
+        .hex-display {
+            top: 85%;
+            right: 20%;
+            z-index: 3;
+        }
+        
+        .hex-display-2 {
+            top: 30%;
+            left: 5%;
+            z-index: 1;
+        }
+        
+        .hex-display-3 {
+            top: 45%;
+            left: 40%;
+            z-index: 4;
+        }
+        
+        .hex-display-4 {
+            top: 95%;
+            right: 10%;
+            z-index: 2;
+        }
+        
+        .hex-text {
+            font-family: 'Pixely', monospace;
+            font-size: 1rem;
+            color: #00aa00;
+            text-shadow: 0 0 8px #00aa00;
+            line-height: 1.3;
+            margin: 0;
+            white-space: pre;
+        }
+        
+        /* 系统信息显示 */
+        .system-info {
+            top: 20%;
+            right: 50%;
+            z-index: 2;
+        }
+        
+        .system-info-2 {
+            top: 70%;
+            left: 80%;
+            z-index: 1;
+        }
+        
+        .system-info-3 {
+            top: 35%;
+            left: 65%;
+            z-index: 3;
+        }
+        
+        .system-text {
+            font-family: 'Pixely', monospace;
+            font-size: 0.9rem;
+            color: #00dd00;
+            text-shadow: 0 0 8px #00dd00;
+            line-height: 1.3;
+            margin: 0;
+            white-space: pre;
+        }
+        
+        /* 网络状态显示 */
+        .network-status {
+            top: 55%;
+            left: 55%;
+            z-index: 4;
+        }
+        
+        .network-status-2 {
+            top: 15%;
+            right: 5%;
+            z-index: 2;
+        }
+        
+        .network-text {
+            font-family: 'Pixely', monospace;
+            font-size: 0.8rem;
+            color: #00bb00;
+            text-shadow: 0 0 8px #00bb00;
+            line-height: 1.4;
+            margin: 0;
+            white-space: pre;
+        }
+        
+        /* 日志显示 */
+        .log-display {
+            top: 80%;
+            left: 60%;
+            z-index: 3;
+        }
+        
+        .log-display-2 {
+            top: 90%;
+            left: 75%;
+            z-index: 1;
+        }
+        
+        .log-text {
+            font-family: 'Pixely', monospace;
+            font-size: 0.8rem;
+            color: #00cc00;
+            text-shadow: 0 0 8px #00cc00;
+            line-height: 1.3;
+            margin: 0;
+            white-space: pre;
+        }
+        
+        /* 文字动画区域 */
+        .text-animation-area {
+            margin: 400px 0;
+            padding: 0 100px;
+        }
+        
+        .animated-text-block {
+            margin: 300px 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(-100px);
+        }
+        
+        .block-title {
+            font-family: 'Pixely', monospace;
+            font-size: clamp(2.5rem, 6vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #00ff00;
+            text-shadow: 
+                0 0 5px #00ff00,
+                0 0 10px #00ff00,
+                0 0 15px #00ff00;
+            letter-spacing: 0.2em;
+            animation: terminalPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes terminalPulse {
+            0%, 100% { 
+                opacity: 1;
+                text-shadow: 
+                    0 0 5px #00ff00,
+                    0 0 10px #00ff00,
+                    0 0 15px #00ff00;
+            }
+            50% { 
+                opacity: 0.8;
+                text-shadow: 
+                    0 0 10px #00ff00,
+                    0 0 20px #00ff00,
+                    0 0 30px #00ff00;
+            }
+        }
+        
+        .block-description {
+            font-family: 'Pixely', monospace;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: #00cc00;
+            letter-spacing: 0.15em;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 0 0 5px #00cc00;
+        }
+        
+        /* 粒子系统 */
+        .particle-system {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        #particleCanvas {
+            width: 100%;
+            height: 100%;
+            filter: 
+                hue-rotate(120deg)
+                brightness(1.3)
+                contrast(1.2)
+                drop-shadow(0 0 10px rgba(0, 255, 0, 0.3));
+            z-index: 1;
+        }
+        
+
+        
+
+        
+        /* 动画关键帧 */
+        @keyframes morphPulse {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+            }
+            25% {
+                transform: scale(1.2) rotate(90deg);
+            }
+            50% {
+                transform: scale(0.8) rotate(180deg);
+            }
+            75% {
+                transform: scale(1.1) rotate(270deg);
+            }
+        }
+        
+        @keyframes floatUpDown {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        @keyframes rotateScale {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.2);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             .hero-title {
@@ -286,6 +991,33 @@
             .section {
                 padding: 60px 15px;
             }
+            
+            .scroll-container {
+                padding: 50px 20px;
+            }
+            
+            .graphics-showcase {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 50px;
+                margin: 200px 0;
+                padding: 0 20px;
+            }
+            
+            .graphic-element {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .text-animation-area {
+                padding: 0 20px;
+                margin: 200px 0;
+            }
+            
+            .animated-text-block {
+                margin: 150px 0;
+            }
+            
+
         }
     </style>
 </head>
@@ -309,6 +1041,413 @@
             <canvas id="liquid-canvas"></canvas>
             <div class="liquid-text-container">
                 <div class="liquid-text" id="liquidText">DISSOLVE YOURSELF</div>
+            </div>
+        </section>
+        
+        <!-- 滚动交互展示区 -->
+        <section class="scroll-interaction-section">
+            <div class="scroll-container">
+                <!-- 标题区域 -->
+                <div class="scroll-title-area">
+                    <h2 class="scroll-main-title">SCROLL DYNAMICS</h2>
+                    <p class="scroll-subtitle">Experience the power of motion</p>
+                </div>
+                
+                <!-- 分散的终端美学元素 -->
+                <div class="terminal-elements-container">
+                    <!-- ASCII艺术元素 -->
+                    <div class="terminal-element ascii-art-1 size-medium">
+                        <pre class="ascii-text">
+ ╔══════════════╗
+ ║   SYSTEM     ║
+ ║   ONLINE     ║
+ ╚══════════════╝
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element ascii-art-2 size-small">
+                        <pre class="ascii-text">
+    ▲▲▲▲▲▲▲▲
+   ▲ LOADING ▲
+  ▲▲▲▲▲▲▲▲▲▲
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element ascii-art-3 size-large">
+                        <pre class="ascii-text">
+████████╗███████╗██████╗ ███╗   ███╗
+╚══██╔══╝██╔════╝██╔══██╗████╗ ████║
+   ██║   █████╗  ██████╔╝██╔████╔██║
+   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║
+   ██║   ███████╗██║  ██║██║ ╚═╝ ██║
+   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element ascii-art-4 size-small">
+                        <pre class="ascii-text">
+  [###    ]
+  Loading...
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element ascii-art-5 size-medium">
+                        <pre class="ascii-text">
+    ┌─────────┐
+    │ SUCCESS │
+    └─────────┘
+       ✓ OK
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element ascii-art-6 size-small">
+                        <pre class="ascii-text">
+  ░░░▒▒▒▓▓▓
+  ▓▓▓▒▒▒░░░
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element ascii-art-7 size-large">
+                        <pre class="ascii-text">
+ ██████╗ ██████╗ ██████╗ ███████╗
+██╔════╝██╔═══██╗██╔══██╗██╔════╝
+██║     ██║   ██║██║  ██║█████╗  
+██║     ██║   ██║██║  ██║██╔══╝  
+╚██████╗╚██████╔╝██████╔╝███████╗
+ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝
+                        </pre>
+                    </div>
+                    
+                    <!-- 代码块元素 -->
+                    <div class="terminal-element code-block-1 size-medium">
+                        <pre class="code-text">
+> run_animation.exe
+[████████████] 100%
+STATUS: ACTIVE
+> _
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element code-block-2 size-large">
+                        <pre class="code-text">
+#!/bin/bash
+echo "Starting system..."
+for i in {1..10}; do
+  echo "Loading module $i"
+  sleep 0.1
+done
+echo "System ready."
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element code-block-3 size-small">
+                        <pre class="code-text">
+$ ps aux
+$ top -n 1
+$ df -h
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element code-block-4 size-medium">
+                        <pre class="code-text">
+function init() {
+  console.log('Init');
+  return true;
+}
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element code-block-5 size-small">
+                        <pre class="code-text">
+$ git status
+$ npm start
+                        </pre>
+                    </div>
+                    
+                    <!-- 矩阵雨元素 -->
+                    <div class="terminal-element matrix-rain size-medium">
+                        <div class="matrix-column">
+                            <span>1</span><span>0</span><span>1</span><span>1</span>
+                            <span>0</span><span>1</span><span>0</span><span>1</span>
+                            <span>1</span><span>1</span><span>0</span><span>0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element matrix-rain-2 size-small">
+                        <div class="matrix-column">
+                            <span>A</span><span>B</span><span>C</span>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element matrix-rain-3 size-large">
+                        <div class="matrix-column">
+                            <span>█</span><span>▓</span><span>▒</span><span>░</span><span>█</span>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element matrix-rain-4 size-small">
+                        <div class="matrix-column">
+                            <span>X</span><span>Y</span><span>Z</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 终端提示符元素 -->
+                    <div class="terminal-element terminal-prompt size-large">
+                        <pre class="prompt-text">
+user@system:~$ ls -la
+drwxr-xr-x  animations/
+-rwxr-xr-x  scroll.js
+-rw-r--r--  style.css
+user@system:~$ █
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element terminal-prompt-2 size-small">
+                        <pre class="prompt-text">
+root@server:~# whoami
+root
+root@server:~# _
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element terminal-prompt-3 size-medium">
+                        <pre class="prompt-text">
+admin@localhost:~$ uptime
+ 19:30:15 up 2 days, 14:23
+admin@localhost:~$ _
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element terminal-prompt-4 size-small">
+                        <pre class="prompt-text">
+$ vim config.txt
+$ chmod +x script.sh
+                        </pre>
+                    </div>
+                    
+                    <!-- 电路图案元素 -->
+                    <div class="terminal-element circuit-pattern size-medium">
+                        <div class="circuit-lines">
+                            <div class="line horizontal"></div>
+                            <div class="line vertical"></div>
+                            <div class="node"></div>
+                            <div class="node node-2"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element circuit-pattern-2 size-small">
+                        <div class="circuit-lines">
+                            <div class="line horizontal"></div>
+                            <div class="node"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element circuit-pattern-3 size-large">
+                        <div class="circuit-lines">
+                            <div class="line horizontal"></div>
+                            <div class="line vertical"></div>
+                            <div class="line horizontal" style="top: 30%; left: 10px; width: 60px;"></div>
+                            <div class="line vertical" style="left: 30%; top: 20px; height: 80px;"></div>
+                            <div class="node"></div>
+                            <div class="node node-2"></div>
+                            <div class="node" style="top: 26px; left: 36px;"></div>
+                            <div class="node" style="top: 66px; left: 26px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element circuit-pattern-4 size-small">
+                        <div class="circuit-lines">
+                            <div class="line vertical"></div>
+                            <div class="node"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 进度条元素 -->
+                    <div class="terminal-element progress-bars size-medium">
+                        <div class="progress-container">
+                            <div class="progress-label">CPU:</div>
+                            <div class="progress-bar"><div class="progress-fill cpu"></div></div>
+                            <div class="progress-label">RAM:</div>
+                            <div class="progress-bar"><div class="progress-fill ram"></div></div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element progress-bars-2 size-small">
+                        <div class="progress-container">
+                            <div class="progress-label">NET: 45%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 45%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element progress-bars-3 size-large">
+                        <div class="progress-container">
+                            <div class="progress-label">DISK: 82%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 82%;"></div>
+                            </div>
+                            <div class="progress-label">SWAP: 23%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 23%;"></div>
+                            </div>
+                            <div class="progress-label">TEMP: 67%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 67%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element progress-bars-4 size-small">
+                        <div class="progress-container">
+                            <div class="progress-label">GPU: 91%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 91%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 十六进制显示元素 -->
+                    <div class="terminal-element hex-display size-medium">
+                        <pre class="hex-text">
+0x4A 0x53 0x20
+0x41 0x4E 0x49
+0x4D 0x41 0x54
+0x45 0x44 0x21
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element hex-display-2 size-small">
+                        <pre class="hex-text">
+0xFF 0x00
+0xAB 0xCD
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element hex-display-3 size-large">
+                        <pre class="hex-text">
+0x48656C6C6F20576F726C64
+0x54657374696E672048657820
+0x44617461204475706C696361
+0x74696F6E20436865636B696E
+0x67205375636365737366756C
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element hex-display-4 size-small">
+                        <pre class="hex-text">
+0x1A 0x2B
+0x3C 0x4D
+                        </pre>
+                    </div>
+                    
+                    <!-- 系统信息显示元素 -->
+                    <div class="terminal-element system-info size-medium">
+                        <pre class="system-text">
+SYSTEM STATUS:
+├─ CPU: Intel i7
+├─ RAM: 16GB DDR4
+├─ GPU: NVIDIA RTX
+└─ STATUS: ONLINE
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element system-info-2 size-small">
+                        <pre class="system-text">
+UPTIME:
+2d 14h 23m
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element system-info-3 size-large">
+                        <pre class="system-text">
+╔═══════════════════════════╗
+║        SYSTEM INFO        ║
+╠═══════════════════════════╣
+║ OS: Linux Ubuntu 22.04   ║
+║ Kernel: 5.15.0-72        ║
+║ Shell: bash 5.1.16        ║
+║ DE: GNOME 42.5            ║
+║ WM: Mutter                ║
+║ Terminal: gnome-terminal  ║
+╚═══════════════════════════╝
+                        </pre>
+                    </div>
+                    
+                    <!-- 网络状态元素 -->
+                    <div class="terminal-element network-status size-large">
+                        <pre class="network-text">
+NETWORK INTERFACE:
+eth0: UP, 192.168.1.100/24
+wlan0: UP, 10.0.0.50/24
+lo: UP, 127.0.0.1/8
+
+CONNECTIONS: 47 active
+TRAFFIC: ↑ 2.3MB/s ↓ 15.7MB/s
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element network-status-2 size-small">
+                        <pre class="network-text">
+PING: 12ms
+STATUS: OK
+                        </pre>
+                    </div>
+                    
+                    <!-- 日志显示元素 -->
+                    <div class="terminal-element log-display size-medium">
+                        <pre class="log-text">
+[19:30:15] INFO: Service started
+[19:30:16] WARN: Low memory
+[19:30:17] INFO: Connection OK
+[19:30:18] ERROR: Timeout
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element log-display-2 size-small">
+                        <pre class="log-text">
+[OK] Started
+[FAIL] Error
+                        </pre>
+                    </div>
+                </div>
+                
+                <!-- 文字动画区域 -->
+                <div class="text-animation-area">
+                    <div class="animated-text-block block-1">
+                        <h3 class="block-title">CONVERGE</h3>
+                        <p class="block-description">Elements unite in perfect harmony</p>
+                    </div>
+                    
+                    <div class="animated-text-block block-2">
+                        <h3 class="block-title">DISPERSE</h3>
+                        <p class="block-description">Breaking boundaries, expanding horizons</p>
+                    </div>
+                    
+                    <div class="animated-text-block block-3">
+                        <h3 class="block-title">TRANSFORM</h3>
+                        <p class="block-description">Morphing reality through digital alchemy</p>
+                    </div>
+                    
+                    <div class="animated-text-block block-4">
+                        <h3 class="block-title">DISTORT</h3>
+                        <p class="block-description">Bending space and time with code</p>
+                    </div>
+                    
+                    <div class="animated-text-block block-5">
+                        <h3 class="block-title">STRETCH</h3>
+                        <p class="block-description">Extending possibilities beyond limits</p>
+                    </div>
+                </div>
+                
+                <!-- 粒子系统容器 -->
+                <div class="particle-system">
+                    <canvas id="particleCanvas"></canvas>
+                </div>
+                
+
+                
+
             </div>
         </section>
     </main>
@@ -1011,10 +2150,361 @@
                 { y: 0, opacity: 1, duration: 1.5, delay: 0.3, ease: 'power3.out' }
             );
             
-            // 为后续内容预留动画空间
+            // 滚动交互展示区动画
+            initScrollInteractionAnimations();
             
             // 液态文字交互演示初始化
             initLiquidTextEffect();
+        }
+        
+        // 滚动交互展示区动画
+        function initScrollInteractionAnimations() {
+            // 启用ScrollTrigger的批量更新和优化
+            ScrollTrigger.config({
+                autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+                ignoreMobileResize: true
+            });
+            
+            // 添加全局滚动监听器以提高响应性
+            let scrollDirection = 1;
+            let lastScrollY = window.scrollY;
+            
+            // 使用节流函数优化滚动监听
+             let scrollTimeout;
+             window.addEventListener('scroll', () => {
+                 const currentScrollY = window.scrollY;
+                 scrollDirection = currentScrollY > lastScrollY ? 1 : -1;
+                 lastScrollY = currentScrollY;
+                 
+                 // 清除之前的超时
+                 clearTimeout(scrollTimeout);
+                 
+                 // 立即更新ScrollTrigger
+                 ScrollTrigger.update();
+                 
+                 // 延迟刷新以避免过度计算
+                 scrollTimeout = setTimeout(() => {
+                     ScrollTrigger.refresh();
+                 }, 100);
+             }, { passive: true });
+            // 标题区域动画
+            gsap.fromTo('.scroll-title-area', {
+                opacity: 0,
+                y: 50,
+                scale: 0.9
+            }, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 1.5,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.scroll-title-area',
+                    start: 'top 80%',
+                    end: 'top 20%',
+                    scrub: true,
+                    toggleActions: 'play reverse play reverse',
+                    invalidateOnRefresh: true,
+                    refreshPriority: -1,
+                    fastScrollEnd: true,
+                    preventOverlaps: true
+                }
+            });
+            
+            // 终端元素动画
+            gsap.utils.toArray('.terminal-element').forEach((element, index) => {
+                gsap.fromTo(element, {
+                    opacity: 0,
+                    scale: 0.8,
+                    y: 50
+                }, {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    duration: 1.2,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 85%',
+                        end: 'top 15%',
+                        scrub: true,
+                        toggleActions: 'play reverse play reverse',
+                        invalidateOnRefresh: true,
+                        refreshPriority: -1,
+                        fastScrollEnd: true,
+                        preventOverlaps: true
+                    },
+                    delay: index * 0.15
+                });
+                
+                // 持续的浮动动画
+                gsap.to(element, {
+                    y: "random(-10, 10)",
+                    x: "random(-5, 5)",
+                    duration: "random(4, 6)",
+                    ease: 'sine.inOut',
+                    repeat: -1,
+                    yoyo: true,
+                    delay: index * 0.3
+                });
+                
+                // 鼠标悬停时的发光效果
+                element.addEventListener('mouseenter', () => {
+                    gsap.to(element, {
+                        scale: 1.05,
+                        boxShadow: "0 0 40px rgba(0, 255, 0, 0.6), inset 0 0 30px rgba(0, 255, 0, 0.2)",
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    gsap.to(element, {
+                        scale: 1,
+                        boxShadow: "0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 20px rgba(0, 255, 0, 0.1)",
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+            });
+            
+            // 矩阵雨特殊动画 - 适用于所有矩阵雨元素
+            const matrixElements = document.querySelectorAll('[class*="matrix-rain"]');
+            matrixElements.forEach((matrixElement, index) => {
+                ScrollTrigger.create({
+                    trigger: matrixElement,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    onEnter: () => {
+                        gsap.to(matrixElement.querySelectorAll('.matrix-column span'), {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.5,
+                            stagger: 0.1,
+                            ease: "power2.out",
+                            delay: index * 0.2
+                        });
+                    },
+                    onLeave: () => {
+                        gsap.to(matrixElement.querySelectorAll('.matrix-column span'), {
+                            opacity: 0.3,
+                            duration: 0.3
+                        });
+                    }
+                });
+            });
+            
+            // 进度条动画 - 适用于所有进度条元素
+            const progressContainers = document.querySelectorAll('[class*="progress-bars"]');
+            progressContainers.forEach((container, containerIndex) => {
+                const progressBars = container.querySelectorAll('.progress-fill');
+                ScrollTrigger.create({
+                    trigger: container,
+                    start: "top 80%",
+                    onEnter: () => {
+                        progressBars.forEach((bar, barIndex) => {
+                            let targetWidth = '60%'; // 默认宽度
+                            
+                            // 根据类名设置不同的宽度
+                            if (bar.classList.contains('cpu')) targetWidth = '75%';
+                            else if (bar.classList.contains('ram')) targetWidth = '60%';
+                            else if (bar.style.width) targetWidth = bar.style.width;
+                            
+                            gsap.fromTo(bar, 
+                                { width: '0%' },
+                                { 
+                                    width: targetWidth,
+                                    duration: 2,
+                                    delay: (containerIndex * 0.3) + (barIndex * 0.5),
+                                    ease: "power2.out"
+                                }
+                            );
+                        });
+                    }
+                });
+            });
+            
+            // 文字块动画 - 不同方向的进入效果
+            gsap.utils.toArray('.animated-text-block').forEach((block, index) => {
+                const isEven = index % 2 === 0;
+                const startX = isEven ? -150 : 150;
+                
+                gsap.fromTo(block, {
+                    opacity: 0,
+                    x: startX,
+                    scale: 0.8,
+                    rotation: isEven ? -15 : 15
+                }, {
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                    rotation: 0,
+                    duration: 1.5,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: block,
+                        start: 'top 80%',
+                        end: 'top 20%',
+                        scrub: true,
+                        toggleActions: 'play reverse play reverse',
+                        invalidateOnRefresh: true,
+                        refreshPriority: -1,
+                        fastScrollEnd: true,
+                        preventOverlaps: true
+                    }
+                });
+                
+                // 文字标题的伸展效果
+                const title = block.querySelector('.block-title');
+                gsap.fromTo(title, {
+                    scaleX: 0.3,
+                    scaleY: 1.8,
+                    transformOrigin: 'center'
+                }, {
+                    scaleX: 1,
+                    scaleY: 1,
+                    duration: 1,
+                    ease: 'elastic.out(1, 0.5)',
+                    scrollTrigger: {
+                        trigger: block,
+                        start: 'top 75%',
+                        end: 'top 25%',
+                        scrub: true,
+                        toggleActions: 'play reverse play reverse',
+                        invalidateOnRefresh: true,
+                        refreshPriority: -1,
+                        fastScrollEnd: true,
+                        preventOverlaps: true
+                    },
+                    delay: 0.3
+                });
+            });
+            
+
+            
+
+            
+            // 视差滚动效果
+            gsap.utils.toArray('.graphic-element').forEach((element, index) => {
+                const direction = index % 2 === 0 ? -1 : 1;
+                gsap.fromTo(element, {
+                    y: 0
+                }, {
+                    y: direction * 80 * (index % 3 + 1),
+                    scrollTrigger: {
+                        trigger: '.scroll-interaction-section',
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: true,
+                        toggleActions: 'play reverse play reverse',
+                        invalidateOnRefresh: true,
+                        refreshPriority: -1,
+                        fastScrollEnd: true,
+                        preventOverlaps: true
+                    }
+                });
+            });
+            
+            // 初始化粒子系统
+            initParticleSystem();
+        }
+        
+        // 粒子系统
+        function initParticleSystem() {
+            const canvas = document.getElementById('particleCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let animationId;
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            class Particle {
+                constructor() {
+                    this.reset();
+                    this.y = Math.random() * canvas.height;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = -10;
+                    this.vx = (Math.random() - 0.5) * 2;
+                    this.vy = Math.random() * 3 + 1;
+                    this.size = Math.random() * 3 + 1;
+                    this.color = `hsl(${Math.random() * 60 + 200}, 70%, 60%)`;
+                    this.life = 1;
+                    this.decay = Math.random() * 0.01 + 0.005;
+                }
+                
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.life -= this.decay;
+                    
+                    // 重力效果
+                    this.vy += 0.05;
+                    
+                    // 边界检查
+                    if (this.x < 0 || this.x > canvas.width || this.y > canvas.height || this.life <= 0) {
+                        this.reset();
+                        this.life = 1;
+                    }
+                }
+                
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.life * this.opacity;
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+            
+            // 创建粒子
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                
+                animationId = requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            // 滚动时增加粒子效果
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                const scrollSpeed = Math.abs(window.scrollY - lastScrollY);
+                if (scrollSpeed > 5) {
+                    // 添加额外粒子
+                    for (let i = 0; i < Math.min(scrollSpeed / 10, 5); i++) {
+                        particles.push(new Particle());
+                    }
+                    
+                    // 限制粒子数量
+                    if (particles.length > 100) {
+                        particles = particles.slice(-100);
+                    }
+                }
+                lastScrollY = window.scrollY;
+            });
         }
         
         // 液态文字交互效果
