@@ -300,6 +300,83 @@
             100% { opacity: 1; }
         }
         
+        /* 自然频闪效果 - 模仿真实老式终端 */
+        @keyframes textFlicker {
+            0% { opacity: 1; }
+            2% { opacity: 0.95; }
+            4% { opacity: 1; }
+            7% { opacity: 0.88; }
+            9% { opacity: 1; }
+            12% { opacity: 0.92; }
+            15% { opacity: 1; }
+            18% { opacity: 0.85; }
+            21% { opacity: 1; }
+            25% { opacity: 0.9; }
+            28% { opacity: 1; }
+            32% { opacity: 0.87; }
+            35% { opacity: 1; }
+            39% { opacity: 0.93; }
+            42% { opacity: 1; }
+            46% { opacity: 0.89; }
+            49% { opacity: 1; }
+            53% { opacity: 0.91; }
+            56% { opacity: 1; }
+            60% { opacity: 0.86; }
+            63% { opacity: 1; }
+            67% { opacity: 0.94; }
+            70% { opacity: 1; }
+            74% { opacity: 0.88; }
+            77% { opacity: 1; }
+            81% { opacity: 0.92; }
+            84% { opacity: 1; }
+            88% { opacity: 0.9; }
+            91% { opacity: 1; }
+            95% { opacity: 0.87; }
+            98% { opacity: 1; }
+            100% { opacity: 1; }
+        }
+        
+        /* 有机频闪效果 - 更自然的闪烁 */
+        @keyframes intensiveFlicker {
+            0% { opacity: 1; }
+            1.5% { opacity: 0.82; }
+            3% { opacity: 1; }
+            5.2% { opacity: 0.75; }
+            7% { opacity: 1; }
+            9.8% { opacity: 0.88; }
+            12% { opacity: 1; }
+            14.7% { opacity: 0.79; }
+            17% { opacity: 1; }
+            20.3% { opacity: 0.85; }
+            23% { opacity: 1; }
+            26.1% { opacity: 0.77; }
+            29% { opacity: 1; }
+            32.4% { opacity: 0.91; }
+            35% { opacity: 1; }
+            38.6% { opacity: 0.73; }
+            41% { opacity: 1; }
+            44.8% { opacity: 0.86; }
+            47% { opacity: 1; }
+            50.5% { opacity: 0.81; }
+            53% { opacity: 1; }
+            56.7% { opacity: 0.89; }
+            59% { opacity: 1; }
+            62.3% { opacity: 0.76; }
+            65% { opacity: 1; }
+            68.9% { opacity: 0.84; }
+            71% { opacity: 1; }
+            74.2% { opacity: 0.78; }
+            77% { opacity: 1; }
+            80.6% { opacity: 0.92; }
+            83% { opacity: 1; }
+            86.4% { opacity: 0.74; }
+            89% { opacity: 1; }
+            92.8% { opacity: 0.87; }
+            95% { opacity: 1; }
+            97.5% { opacity: 0.83; }
+            100% { opacity: 1; }
+        }
+        
         .scroll-container {
             position: relative;
             width: 100%;
@@ -321,13 +398,13 @@
             font-weight: 900;
             color: #00ff00;
             text-shadow: 
-                0 0 5px #00ff00,
-                0 0 10px #00ff00,
-                0 0 15px #00ff00,
-                0 0 20px #00ff00;
+                0 0 2px #00ff00,
+                0 0 8px #00ff00,
+                0 0 12px #00ff00,
+                0 0 16px #00ff00;
             margin-bottom: 20px;
             letter-spacing: 0.2em;
-            animation: terminalGlow 2s ease-in-out infinite alternate;
+            animation: terminalGlow 2s ease-in-out infinite alternate, intensiveFlicker 3.7s infinite ease-in-out;
         }
         
         @keyframes terminalGlow {
@@ -353,7 +430,11 @@
             color: #00cc00;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            text-shadow: 0 0 10px #00cc00;
+            text-shadow: 
+                0 0 2px #00cc00,
+                0 0 6px #00cc00,
+                0 0 8px #00cc00;
+            animation: intensiveFlicker 4.2s infinite ease-in-out;
         }
         
         /* 终端元素容器 */
@@ -444,10 +525,14 @@
             font-family: 'Pixely', monospace;
             font-size: 1.2rem;
             color: #00ff00;
-            text-shadow: 0 0 10px #00ff00;
+            text-shadow: 
+                0 0 2px #00ff00,
+                0 0 5px #00ff00,
+                0 0 8px #00ff00;
             line-height: 1.2;
             margin: 0;
             white-space: pre;
+            animation: intensiveFlicker 3.9s infinite ease-in-out;
         }
         
         /* 代码块元素 */
@@ -485,10 +570,14 @@
             font-family: 'Pixely', monospace;
             font-size: 1rem;
             color: #00cc00;
-            text-shadow: 0 0 8px #00cc00;
+            text-shadow: 
+                0 0 1px #00cc00,
+                0 0 4px #00cc00,
+                0 0 6px #00cc00;
             line-height: 1.4;
             margin: 0;
             white-space: pre;
+            animation: textFlicker 5.1s infinite ease-in-out;
         }
         
         /* 矩阵雨效果 */
@@ -530,8 +619,11 @@
             font-family: 'Pixely', monospace;
             font-size: 1.5rem;
             color: #00ff00;
-            text-shadow: 0 0 15px #00ff00;
-            animation: matrixFall 2s infinite linear;
+            text-shadow: 
+                0 0 2px #00ff00,
+                0 0 6px #00ff00,
+                0 0 10px #00ff00;
+            animation: matrixFall 2s infinite linear, intensiveFlicker 4.8s infinite ease-in-out;
         }
         
         .matrix-column span:nth-child(2) { animation-delay: 0.5s; }
@@ -576,10 +668,14 @@
             font-family: 'Pixely', monospace;
             font-size: 0.9rem;
             color: #00dd00;
-            text-shadow: 0 0 8px #00dd00;
+            text-shadow: 
+                0 0 1px #00dd00,
+                0 0 4px #00dd00,
+                0 0 7px #00dd00;
             line-height: 1.3;
             margin: 0;
             white-space: pre;
+            animation: intensiveFlicker 4.6s infinite ease-in-out;
         }
         
         /* 电路图案 */
@@ -718,7 +814,11 @@
             font-family: 'Pixely', monospace;
             font-size: 0.9rem;
             color: #00cc00;
-            text-shadow: 0 0 8px #00cc00;
+            text-shadow: 
+                0 0 1px #00cc00,
+                0 0 4px #00cc00,
+                0 0 6px #00cc00;
+            animation: textFlicker 0.11s infinite linear;
         }
         
         .progress-bar {
@@ -780,10 +880,14 @@
             font-family: 'Pixely', monospace;
             font-size: 1rem;
             color: #00aa00;
-            text-shadow: 0 0 8px #00aa00;
+            text-shadow: 
+                0 0 1px #00aa00,
+                0 0 4px #00aa00,
+                0 0 6px #00aa00;
             line-height: 1.3;
             margin: 0;
             white-space: pre;
+            animation: intensiveFlicker 0.07s infinite linear;
         }
         
         /* 系统信息显示 */
@@ -809,10 +913,14 @@
             font-family: 'Pixely', monospace;
             font-size: 0.9rem;
             color: #00dd00;
-            text-shadow: 0 0 8px #00dd00;
+            text-shadow: 
+                0 0 1px #00dd00,
+                0 0 4px #00dd00,
+                0 0 7px #00dd00;
             line-height: 1.3;
             margin: 0;
             white-space: pre;
+            animation: textFlicker 0.10s infinite linear;
         }
         
         /* 网络状态显示 */
@@ -832,10 +940,14 @@
             font-family: 'Pixely', monospace;
             font-size: 0.8rem;
             color: #00bb00;
-            text-shadow: 0 0 8px #00bb00;
+            text-shadow: 
+                0 0 1px #00bb00,
+                0 0 3px #00bb00,
+                0 0 6px #00bb00;
             line-height: 1.4;
             margin: 0;
             white-space: pre;
+            animation: intensiveFlicker 3.5s infinite ease-in-out;
         }
         
         /* 日志显示 */
@@ -855,10 +967,14 @@
             font-family: 'Pixely', monospace;
             font-size: 0.8rem;
             color: #00cc00;
-            text-shadow: 0 0 8px #00cc00;
+            text-shadow: 
+                0 0 1px #00cc00,
+                0 0 3px #00cc00,
+                0 0 6px #00cc00;
             line-height: 1.3;
             margin: 0;
             white-space: pre;
+            animation: textFlicker 4.7s infinite ease-in-out;
         }
         
         /* 文字动画区域 */
@@ -881,11 +997,11 @@
             margin-bottom: 20px;
             color: #00ff00;
             text-shadow: 
-                0 0 5px #00ff00,
-                0 0 10px #00ff00,
-                0 0 15px #00ff00;
+                0 0 2px #00ff00,
+                0 0 6px #00ff00,
+                0 0 10px #00ff00;
             letter-spacing: 0.2em;
-            animation: terminalPulse 3s ease-in-out infinite;
+            animation: terminalPulse 3s ease-in-out infinite, intensiveFlicker 3.2s infinite ease-in-out;
         }
         
         @keyframes terminalPulse {
@@ -912,7 +1028,11 @@
             letter-spacing: 0.15em;
             max-width: 600px;
             margin: 0 auto;
-            text-shadow: 0 0 5px #00cc00;
+            text-shadow: 
+                0 0 1px #00cc00,
+                0 0 3px #00cc00,
+                0 0 5px #00cc00;
+            animation: textFlicker 5.3s infinite ease-in-out;
         }
         
         /* 粒子系统 */
@@ -1118,6 +1238,56 @@
                         </pre>
                     </div>
                     
+                    <!-- 新增ASCII艺术元素 -->
+                    <div class="terminal-element ascii-art-8 size-small" style="top: 12%; right: 8%; z-index: 2;">
+                        <pre class="ascii-text">
+  ░▒▓█
+  █▓▒░
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element ascii-art-9 size-medium" style="top: 48%; left: 75%; z-index: 3;">
+                        <pre class="ascii-text">
+ ┌─────┐
+ │ NET │
+ │ OK  │
+ └─────┘
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element ascii-art-10 size-small" style="top: 62%; right: 25%; z-index: 1;">
+                        <pre class="ascii-text">
+ ▲ WARN
+ ▼ INFO
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element ascii-art-11 size-large" style="top: 78%; left: 50%; z-index: 4;">
+                        <pre class="ascii-text">
+ ╔═══════════════════╗
+ ║ TERMINAL ACTIVE   ║
+ ║ STATUS: ONLINE    ║
+ ║ USERS: 1337       ║
+ ╚═══════════════════╝
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element ascii-art-12 size-small" style="top: 88%; right: 12%; z-index: 2;">
+                        <pre class="ascii-text">
+ ◄►◄►
+ ►◄►◄
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element ascii-art-13 size-medium" style="top: 32%; left: 18%; z-index: 3;">
+                        <pre class="ascii-text">
+ ████▌
+ ▐████
+ ████▌
+ ▐████
+                        </pre>
+                    </div>
+                    
                     <!-- 代码块元素 -->
                     <div class="terminal-element code-block-1 size-medium">
                         <pre class="code-text">
@@ -1164,6 +1334,57 @@ $ npm start
                         </pre>
                     </div>
                     
+                    <!-- 新增代码块元素 -->
+                    <div class="terminal-element code-block-6 size-medium" style="top: 18%; left: 82%; z-index: 2;">
+                        <pre class="code-text">
+function init() {
+  const data = fetch('/api');
+  return data.json();
+}
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element code-block-7 size-small" style="top: 52%; right: 8%; z-index: 3;">
+                        <pre class="code-text">
+let x = 0;
+while(x < 10) {
+  x++;
+}
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element code-block-8 size-large" style="top: 72%; left: 8%; z-index: 1;">
+                        <pre class="code-text">
+class Terminal {
+  constructor(config) {
+    this.config = config;
+    this.status = 'idle';
+  }
+  
+  execute(cmd) {
+    return this.process(cmd);
+  }
+}
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element code-block-9 size-small" style="top: 92%; left: 35%; z-index: 4;">
+                        <pre class="code-text">
+> npm start
+> Server running
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element code-block-10 size-medium" style="top: 38%; right: 18%; z-index: 2;">
+                        <pre class="code-text">
+const matrix = [
+  [1, 0, 1],
+  [0, 1, 0],
+  [1, 1, 1]
+];
+                        </pre>
+                    </div>
+                    
                     <!-- 矩阵雨元素 -->
                     <div class="terminal-element matrix-rain size-medium">
                         <div class="matrix-column">
@@ -1188,6 +1409,31 @@ $ npm start
                     <div class="terminal-element matrix-rain-4 size-small">
                         <div class="matrix-column">
                             <span>X</span><span>Y</span><span>Z</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 新增矩阵雨元素 -->
+                    <div class="terminal-element matrix-rain-5 size-medium" style="top: 22%; right: 35%; z-index: 3; background: rgba(0, 0, 0, 0.9);">
+                        <div class="matrix-column">
+                            <span>α</span><span>β</span><span>γ</span><span>δ</span>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element matrix-rain-6 size-small" style="top: 58%; left: 12%; z-index: 2; background: rgba(0, 0, 0, 0.9);">
+                        <div class="matrix-column">
+                            <span>▲</span><span>▼</span><span>◄</span><span>►</span>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element matrix-rain-7 size-large" style="top: 82%; right: 45%; z-index: 1; background: rgba(0, 0, 0, 0.9);">
+                        <div class="matrix-column">
+                            <span>∞</span><span>∑</span><span>∆</span><span>∇</span><span>∂</span><span>∫</span>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element matrix-rain-8 size-small" style="top: 95%; left: 65%; z-index: 4; background: rgba(0, 0, 0, 0.9);">
+                        <div class="matrix-column">
+                            <span>♠</span><span>♣</span><span>♥</span>
                         </div>
                     </div>
                     
@@ -1225,6 +1471,41 @@ $ chmod +x script.sh
                         </pre>
                     </div>
                     
+                    <!-- 新增终端提示符元素 -->
+                    <div class="terminal-element terminal-prompt-5 size-medium" style="top: 28%; right: 22%; z-index: 3; min-width: 280px;">
+                        <pre class="prompt-text">
+dev@machine:~/project$ git log --oneline
+a1b2c3d Fix animation bug
+f4e5d6c Add new features
+user@machine:~/project$ _
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element terminal-prompt-6 size-small" style="top: 68%; left: 88%; z-index: 2; min-width: 180px;">
+                        <pre class="prompt-text">
+$ ps -ef | grep node
+$ kill -9 1234
+$ _
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element terminal-prompt-7 size-large" style="top: 42%; left: 25%; z-index: 1; min-width: 350px;">
+                        <pre class="prompt-text">
+sudo@server:/var/log$ tail -f access.log
+192.168.1.100 - GET /api/data
+192.168.1.101 - POST /api/auth
+192.168.1.102 - GET /api/status
+sudo@server:/var/log$ _
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element terminal-prompt-8 size-small" style="top: 98%; right: 5%; z-index: 4; min-width: 160px;">
+                        <pre class="prompt-text">
+$ docker ps
+$ docker logs app
+                        </pre>
+                    </div>
+                    
                     <!-- 电路图案元素 -->
                     <div class="terminal-element circuit-pattern size-medium">
                         <div class="circuit-lines">
@@ -1259,6 +1540,41 @@ $ chmod +x script.sh
                         <div class="circuit-lines">
                             <div class="line vertical"></div>
                             <div class="node"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 新增电路图案元素 -->
+                    <div class="terminal-element circuit-pattern-5 size-medium" style="top: 15%; left: 75%; z-index: 3;">
+                        <div class="circuit-lines">
+                            <div class="line horizontal"></div>
+                            <div class="line vertical"></div>
+                            <div class="line horizontal" style="top: 40%; left: 20px; width: 40px;"></div>
+                            <div class="node"></div>
+                            <div class="node node-2"></div>
+                            <div class="node" style="top: 36px; left: 46px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element circuit-pattern-6 size-small" style="top: 65%; right: 15%; z-index: 2;">
+                        <div class="circuit-lines">
+                            <div class="line horizontal"></div>
+                            <div class="line vertical"></div>
+                            <div class="node"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element circuit-pattern-7 size-large" style="top: 88%; left: 35%; z-index: 1;">
+                        <div class="circuit-lines">
+                            <div class="line horizontal"></div>
+                            <div class="line vertical"></div>
+                            <div class="line horizontal" style="top: 25%; left: 15px; width: 70px;"></div>
+                            <div class="line vertical" style="left: 40%; top: 15px; height: 90px;"></div>
+                            <div class="line horizontal" style="top: 60%; left: 25px; width: 50px;"></div>
+                            <div class="node"></div>
+                            <div class="node node-2"></div>
+                            <div class="node" style="top: 21px; left: 41px;"></div>
+                            <div class="node" style="top: 56px; left: 51px;"></div>
+                            <div class="node" style="top: 76px; left: 31px;"></div>
                         </div>
                     </div>
                     
@@ -1307,6 +1623,46 @@ $ chmod +x script.sh
                         </div>
                     </div>
                     
+                    <!-- 新增进度条元素 -->
+                    <div class="terminal-element progress-bars-5 size-medium" style="top: 35%; right: 8%; z-index: 3;">
+                        <div class="progress-container">
+                            <div class="progress-label">LOAD: 76%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 76%;"></div>
+                            </div>
+                            <div class="progress-label">PROC: 54%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 54%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element progress-bars-6 size-small" style="top: 72%; left: 18%; z-index: 2;">
+                        <div class="progress-container">
+                            <div class="progress-label">CACHE: 38%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 38%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-element progress-bars-7 size-large" style="top: 92%; right: 25%; z-index: 1;">
+                        <div class="progress-container">
+                            <div class="progress-label">BANDWIDTH: 89%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 89%;"></div>
+                            </div>
+                            <div class="progress-label">LATENCY: 12%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 12%;"></div>
+                            </div>
+                            <div class="progress-label">THROUGHPUT: 95%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- 十六进制显示元素 -->
                     <div class="terminal-element hex-display size-medium">
                         <pre class="hex-text">
@@ -1338,6 +1694,39 @@ $ chmod +x script.sh
                         <pre class="hex-text">
 0x1A 0x2B
 0x3C 0x4D
+                        </pre>
+                    </div>
+                    
+                    <!-- 新增十六进制显示元素 -->
+                    <div class="terminal-element hex-display-5 size-medium" style="top: 18%; left: 45%; z-index: 3;">
+                        <pre class="hex-text">
+0xDEADBEEF 0xCAFEBABE
+0x8BADF00D 0xFEEDFACE
+0xBAADF00D 0xDEADC0DE
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element hex-display-6 size-small" style="top: 55%; right: 35%; z-index: 2;">
+                        <pre class="hex-text">
+0x7F 0x45 0x4C 0x46
+0x02 0x01 0x01 0x00
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element hex-display-7 size-large" style="top: 78%; left: 8%; z-index: 1;">
+                        <pre class="hex-text">
+0x89504E470D0A1A0A PNG HEADER
+0x474946383961 GIF89a MAGIC
+0x255044462D312E PDF-1. SIGNATURE
+0x504B030414000600 ZIP ARCHIVE
+0x52617221 Rar! COMPRESSED
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element hex-display-8 size-small" style="top: 95%; right: 65%; z-index: 4;">
+                        <pre class="hex-text">
+0xBE 0xEF
+0xFA 0xCE
                         </pre>
                     </div>
                     
@@ -1374,6 +1763,40 @@ UPTIME:
                         </pre>
                     </div>
                     
+                    <!-- 新增系统信息元素 -->
+                    <div class="terminal-element system-info-4 size-medium" style="top: 25%; right: 12%; z-index: 3;">
+                        <pre class="system-text">
+PROCESSES:
+├─ systemd [1]
+├─ kthreadd [2]
+├─ ksoftirqd/0 [3]
+├─ migration/0 [4]
+└─ rcu_gp [5]
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element system-info-5 size-small" style="top: 62%; left: 28%; z-index: 2;">
+                        <pre class="system-text">
+LOAD AVG:
+1.23 0.87 0.45
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element system-info-6 size-large" style="top: 85%; right: 18%; z-index: 1;">
+                        <pre class="system-text">
+┌─────────────────────────────┐
+│         HARDWARE INFO       │
+├─────────────────────────────┤
+│ CPU: AMD Ryzen 9 5900X     │
+│ Cores: 12 (24 threads)     │
+│ Base Clock: 3.7 GHz        │
+│ Boost Clock: 4.8 GHz       │
+│ Cache: 64MB L3             │
+│ TDP: 105W                  │
+└─────────────────────────────┘
+                        </pre>
+                    </div>
+                    
                     <!-- 网络状态元素 -->
                     <div class="terminal-element network-status size-large">
                         <pre class="network-text">
@@ -1391,6 +1814,47 @@ TRAFFIC: ↑ 2.3MB/s ↓ 15.7MB/s
                         <pre class="network-text">
 PING: 12ms
 STATUS: OK
+                        </pre>
+                    </div>
+                    
+                    <!-- 新增网络状态元素 -->
+                    <div class="terminal-element network-status-3 size-medium" style="top: 32%; left: 68%; z-index: 3;">
+                        <pre class="network-text">
+ROUTING TABLE:
+0.0.0.0/0 via 192.168.1.1
+192.168.1.0/24 dev eth0
+10.0.0.0/24 dev wlan0
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element network-status-4 size-small" style="top: 75%; right: 42%; z-index: 2;">
+                        <pre class="network-text">
+DNS: 8.8.8.8
+GATEWAY: 192.168.1.1
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element network-status-5 size-large" style="top: 48%; left: 15%; z-index: 1;">
+                        <pre class="network-text">
+╭─────────────────────────────╮
+│       NETWORK MONITOR       │
+├─────────────────────────────┤
+│ Interface: eth0             │
+│ Speed: 1000 Mbps            │
+│ Duplex: Full                │
+│ MTU: 1500                   │
+│ RX Packets: 2,847,392       │
+│ TX Packets: 1,923,847       │
+│ RX Errors: 0                │
+│ TX Errors: 0                │
+╰─────────────────────────────╯
+                        </pre>
+                    </div>
+                    
+                    <div class="terminal-element network-status-6 size-small" style="top: 98%; left: 52%; z-index: 4;">
+                        <pre class="network-text">
+SSH: 22/tcp OPEN
+HTTP: 80/tcp OPEN
                         </pre>
                     </div>
                     
